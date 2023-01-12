@@ -15,7 +15,9 @@ import lombok.Setter;
 public class OrderPointDto {
 
     private Long id;
+
     private ProductDto product;
+
     private OrderDto order;
 
 }

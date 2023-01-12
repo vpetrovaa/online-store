@@ -21,7 +21,6 @@ public class UserRepositoryImpl implements UserRepository {
             "values(?, ?, ?, ?, ?, ?);";
     private static final String FIND_BY_ID = "select id, name, surname, email, phone, password, role, registration_time " +
             "from users where id = ?";
-    private static final String EXIST_BY_ID = "select id from users where id = ?";
     private static final String EXIST_BY_EMAIL = "select id from users where email = ?";
 
     @Override
@@ -74,24 +73,6 @@ public class UserRepositoryImpl implements UserRepository {
         return Optional.empty();
     }
 
-    @Override
-    public boolean isExistById(Long id) {
-        Long idFromDb = null;
-        try{
-            Connection conn = dataSource.getConnection();
-            try(PreparedStatement ps = conn.prepareStatement(EXIST_BY_ID)){
-                ps.setLong(1,id);
-                try(ResultSet rs = ps.executeQuery()) {
-                    if (rs.next()) {
-                        idFromDb = rs.getLong("id");
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            throw new SqlException("Exception in checking user with id " + id);
-        }
-        return idFromDb != null;
-    }
 
     @Override
     public boolean isExistsByEmail(String email) {

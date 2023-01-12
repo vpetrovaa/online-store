@@ -4,7 +4,7 @@ import com.solvd.onlinestore.config.DataSourceConfig;
 import com.solvd.onlinestore.domain.Basket;
 
 import com.solvd.onlinestore.domain.exception.SqlException;
-import com.solvd.onlinestore.domain.mapper.BasketMapper;
+import com.solvd.onlinestore.repository.mapper.BasketMapper;
 import com.solvd.onlinestore.repository.BasketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -17,6 +17,7 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class BasketRepositoryImpl implements BasketRepository {
+
     private final DataSourceConfig dataSource;
     private static final String CREATE_QUERY = "insert into baskets(product_id, user_id) values(?, ?);";
     private static final String DELETE_QUERY = "delete from baskets where id = ?;";

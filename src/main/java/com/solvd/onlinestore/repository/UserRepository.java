@@ -10,8 +10,6 @@ public interface UserRepository {
 
     Optional<User> findById(Long id);
 
-    boolean isExistById(Long id);
-
     boolean isExistsByEmail(String email);
 
 }

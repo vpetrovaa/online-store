@@ -4,7 +4,7 @@ import com.solvd.onlinestore.config.DataSourceConfig;
 import com.solvd.onlinestore.domain.Order;
 import com.solvd.onlinestore.domain.exception.SqlException;
 import com.solvd.onlinestore.repository.OrderRepository;
-import com.solvd.onlinestore.domain.mapper.OrderMapper;
+import com.solvd.onlinestore.repository.mapper.OrderMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

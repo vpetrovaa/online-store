@@ -1,4 +1,4 @@
-package com.solvd.onlinestore.domain.mapper;
+package com.solvd.onlinestore.repository.mapper;
 
 import com.solvd.onlinestore.domain.product.Product;
 import lombok.SneakyThrows;

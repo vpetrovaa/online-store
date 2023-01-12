@@ -15,7 +15,9 @@ import lombok.Setter;
 public class BasketDto {
 
     private Long id;
+
     private UserDto user;
+
     private ProductDto product;
 
 }

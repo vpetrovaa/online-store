@@ -1,4 +1,4 @@
-package com.solvd.onlinestore.web.exception;
+package com.solvd.onlinestore.web.controller;
 
 import com.solvd.onlinestore.domain.exception.ResourceAlreadyExistsException;
 import com.solvd.onlinestore.domain.exception.ResourceDoesNotExistException;
@@ -27,37 +27,37 @@ public class StoreControllerAdvice{
                 .stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .collect(Collectors.toList());
-        return new ResponseDto(HttpStatus.BAD_REQUEST, errors);
+        return new ResponseDto(errors);
     }
 
     @ExceptionHandler(ResourceDoesNotExistException.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     public ResponseDto handleResourceDoesNotExist(ResourceDoesNotExistException ex){
-        return new ResponseDto(HttpStatus.NOT_ACCEPTABLE, List.of(ex.getMessage()));
+        return new ResponseDto(List.of(ex.getMessage()));
     }
 
     @ExceptionHandler(WrongOrderingException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseDto handleWrongOrder(WrongOrderingException ex){
-        return new ResponseDto(HttpStatus.BAD_REQUEST, List.of(ex.getMessage()));
+        return new ResponseDto(List.of(ex.getMessage()));
     }
 
     @ExceptionHandler(ResourceAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseDto handleResourceAlreadyExists(ResourceAlreadyExistsException ex){
-        return new ResponseDto(HttpStatus.NOT_FOUND, List.of(ex.getMessage()));
+        return new ResponseDto(List.of(ex.getMessage()));
     }
 
     @ExceptionHandler(SqlException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseDto handleSqlException(SqlException ex){
-        return new ResponseDto(HttpStatus.BAD_REQUEST, List.of(ex.getMessage()));
+        return new ResponseDto(List.of(ex.getMessage()));
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseDto handleHttpMessageNotReadableException(HttpMessageNotReadableException ex){
-        return new ResponseDto(HttpStatus.BAD_REQUEST, List.of(ex.getMessage()));
+        return new ResponseDto(List.of(ex.getMessage()));
     }
 
 }

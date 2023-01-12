@@ -21,27 +21,34 @@ import java.time.LocalDateTime;
 public class UserDto {
 
     private Long id;
+
     @Size(min = 3, max = 30, message = "Name must be from 3 to 30 symbols")
     @NotNull(message = "Name cant be null")
     @NotBlank(message = "Name cant be empty")
     private String name;
+
     @Size(min = 3, max = 30, message = "Surname must be from 3 to 30 symbols")
     @NotNull(message = "Surname cant be null")
     @NotBlank(message = "Surname cant be empty")
     private String surname;
+
     @Email(message = "Enter your email")
     @NotNull(message = "Email cant be null")
     @NotBlank(message = "Email cant be empty")
     private String email;
+
     @Size(min = 12, max = 12, message = "Phone must be 12 symbols")
     @NotNull(message = "Phone cant be null")
     @NotBlank(message = "Phone cant be empty")
     private String phone;
+
     private User.RoleEnum role;
+
     @Size(min = 10, max = 30, message = "Password must be from 10 to 30 symbols")
     @NotNull(message = "Password cant be null")
     @NotBlank(message = "Password cant be empty")
     private String password;
+
     private LocalDateTime registrationTime;
 
 }
