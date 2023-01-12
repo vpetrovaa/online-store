@@ -45,8 +45,7 @@ public class BasketRepositoryImpl implements BasketRepository {
 
 
     @Override
-    public Basket save(Long productId, Long userId) {
-        Basket basket = new Basket();
+    public void save(Basket basket, Long productId, Long userId) {
         try{
             Connection conn = Objects.requireNonNull(dataSource.getConnection());
             try(PreparedStatement ps = conn.prepareStatement(CREATE_QUERY, Statement.RETURN_GENERATED_KEYS)) {
@@ -63,7 +62,6 @@ public class BasketRepositoryImpl implements BasketRepository {
             throw new SqlException("Exception in creating new basket: product_id - " +
                     basket.getProduct().getId() + ", user_id - " + basket.getUser().getId());
         }
-        return basket;
     }
 
     @Override

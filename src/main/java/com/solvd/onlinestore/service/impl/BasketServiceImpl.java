@@ -19,10 +19,12 @@ public class BasketServiceImpl implements BasketService {
     @Override
     @Transactional
     public Basket save(Long productId, Long userId) {
+        Basket basket = new Basket();
         if(basketRepository.isExistByProductAndUser(productId, userId)){
             throw new ResourceAlreadyExistsException("You already have this product in your basket, user_id is " + userId);
         }
-        return basketRepository.save(productId, userId);
+        basketRepository.save(basket, productId, userId);
+        return basket;
     }
 
     @Override

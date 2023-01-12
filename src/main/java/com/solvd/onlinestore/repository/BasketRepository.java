@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface BasketRepository {
 
-    Basket save(Long productId, Long userId);
+    void save(Basket basket, Long productId, Long userId);
 
     void deleteById(Long id);
 
