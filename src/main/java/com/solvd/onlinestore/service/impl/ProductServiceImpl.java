@@ -65,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
             case "desc" -> " order by cost desc";
             default -> throw new SqlException("Exception in ordering title(asc or desc only) ");
         };
-        List<Product> products = productRepository.findAllByCategoryOrdered(category, ordering);;
+        List<Product> products = productRepository.findAllByCategoryOrdered(category, ordering);
         return products;
     }
 
