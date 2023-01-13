@@ -93,5 +93,12 @@ public class UserController {
         return productMapper.entityToDto(product);
     }
 
+    @GetMapping(value = "/users/products")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<ProductDto> findByCategory(@RequestParam("category") String category) {
+        List<Product> products = productService.findAllByCategory(category);
+        return productMapper.entityToDto(products);
+    }
+
 
 }
