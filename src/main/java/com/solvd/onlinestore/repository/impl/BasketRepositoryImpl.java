@@ -39,8 +39,7 @@ public class BasketRepositoryImpl implements BasketRepository {
             left store.join users on (baskets.user_id = users.id)
             where id = ?;
             """;
-    private static final String IS_EXIST_BY_PRODUCT_AND_USER_QUERY = "select id from baskets where " +
-            "product_id = ? and user_id = ?;";
+    private static final String IS_EXIST_BY_PRODUCT_AND_USER_QUERY = "select id from baskets where product_id = ? and user_id = ?;";
     private static final String DELETE_BY_USER_QUERY = "delete from baskets where user_id = ?;";
 
 
@@ -59,8 +58,7 @@ public class BasketRepositoryImpl implements BasketRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new SqlException("Exception in creating new basket: product_id - " +
-                    basket.getProduct().getId() + ", user_id - " + basket.getUser().getId());
+            throw new SqlException("Exception in creating new basket: product_id - " + basket.getProduct().getId() + ", user_id - " + basket.getUser().getId());
         }
     }
 
@@ -123,8 +121,7 @@ public class BasketRepositoryImpl implements BasketRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new SqlException("Exception in getting basket by product_id - " + productId +
-                    ", user_id - " + userId);
+            throw new SqlException("Exception in getting basket by product_id - " + productId + ", user_id - " + userId);
         }
         return idFromDb != null;
     }

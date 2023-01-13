@@ -17,10 +17,8 @@ import java.util.Optional;
 public class UserRepositoryImpl implements UserRepository {
 
     private final DataSourceConfig dataSource;
-    private static final String CREATE_QUERY = "insert into users(name, surname, email, phone, password, registration_time)" +
-            "values(?, ?, ?, ?, ?, ?);";
-    private static final String FIND_BY_ID = "select id, name, surname, email, phone, password, role, registration_time " +
-            "from users where id = ?";
+    private static final String CREATE_QUERY = "insert into users(name, surname, email, phone, password, registration_time) values(?, ?, ?, ?, ?, ?);";
+    private static final String FIND_BY_ID = "select id, name, surname, email, phone, password, role, registration_time from users where id = ?";
     private static final String EXIST_BY_EMAIL = "select id from users where email = ?";
 
     @Override

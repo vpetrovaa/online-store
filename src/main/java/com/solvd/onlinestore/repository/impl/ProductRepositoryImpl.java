@@ -18,16 +18,12 @@ import java.util.Optional;
 public class ProductRepositoryImpl implements ProductRepository {
 
     private final DataSourceConfig dataSource;
-    private static final String FIND_BY_ID_QUERY = "select id, category, article, model, amount, description, cost " +
-            "from products where id = ?";
+    private static final String FIND_BY_ID_QUERY = "select id, category, article, model, amount, description, cost from products where id = ?";
     private static final String FIND_All_QUERY = "select id, category, article, model, amount, description, cost from products";
-    private static final String CREATE_QUERY = "insert into products(category, article, model, amount, description, cost)" +
-            "values(?, ?, ?, ?, ?, ?);";
+    private static final String CREATE_QUERY = "insert into products(category, article, model, amount, description, cost) values(?, ?, ?, ?, ?, ?);";
     private static final String DELETE_QUERY = "delete from products where id = ?";
-    private static final String FIND_ALL_BY_CATEGORY_QUERY = "select id, category, article, model, amount, description, cost" +
-            " from store.products where category = ?";
-    private static final String FIND_BY_MODEL_OR_ARTICLE_QUERY = "select id, category, article, model, amount, description, cost " +
-            "from products where article = ? or model = ?";
+    private static final String FIND_ALL_BY_CATEGORY_QUERY = "select id, category, article, model, amount, description, cost from store.products where category = ?";
+    private static final String FIND_BY_MODEL_OR_ARTICLE_QUERY = "select id, category, article, model, amount, description, cost from products where article = ? or model = ?";
     private static final String CHECK_EXIST_BY_ARTICLE_OR_MODEL_QUERY = "select id from products where article = ? or model = ?";
     private static final String UPDATE_QUERY = "update products set amount = ? where id = ?;";
 

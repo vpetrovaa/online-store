@@ -73,8 +73,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public Product findByModelOrArticle(ProductSearchParameter parameter){
         Product product = productRepository.findByModelOrArticle(parameter.getParameter())
-                .orElseThrow(() -> new ResourceDoesNotExistException("There are " +
-                        "no product with such article or/and model - " + parameter.getParameter()));
+                .orElseThrow(() -> new ResourceDoesNotExistException("There are no product with such article or/and model - " + parameter.getParameter()));
         return product;
     }
 
