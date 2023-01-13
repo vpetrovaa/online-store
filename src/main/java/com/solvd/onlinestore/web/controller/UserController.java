@@ -19,9 +19,9 @@ public class UserController {
     @PostMapping("/users/registration")
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto save(@RequestBody @Validated UserDto userDto){
-        User user = userMapper.userDtoToUser(userDto);
+        User user = userMapper.dtoToEntity(userDto);
         user = userService.save(user);
-        userDto = userMapper.userToUserDto(user);
+        userDto = userMapper.entityToDto(user);
         return userDto;
     }
 

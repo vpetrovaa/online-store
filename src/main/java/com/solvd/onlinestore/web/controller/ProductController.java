@@ -25,8 +25,8 @@ public class ProductController {
     @PostMapping("/products")
     @ResponseStatus(HttpStatus.CREATED)
     public ProductDto save(@RequestBody @Validated ProductDto productDto){
-        Product product = productMapper.productDtoToProduct(productDto);
-        productDto = productMapper.productToProductDto(productService.save(product));
+        Product product = productMapper.dtoToEntity(productDto);
+        productDto = productMapper.entityToDto(productService.save(product));
         return productDto;
     }
 
@@ -34,13 +34,15 @@ public class ProductController {
     @ResponseStatus(HttpStatus.OK)
     public List<ProductDto> findAll(){
         List<Product> products = productService.findAll();
-        return productMapper.productsToProductDto(products);
+        List<ProductDto> productsDto = productMapper.entitiesToDto(products);
+        return productsDto;
     }
 
     @GetMapping(value="/products/{id}")
     public ProductDto findById(@PathVariable("id") Long id){
         Product product = productService.findById(id);
-        return productMapper.productToProductDto(product);
+        ProductDto productDto = productMapper.entityToDto(product);
+        return productDto;
     }
 
     @DeleteMapping("/products/{id}")
@@ -53,22 +55,25 @@ public class ProductController {
     @ResponseStatus(HttpStatus.CREATED)
     public List<ProductDto> findByCategory(@RequestParam("category") String category){
         List<Product> products = productService.findAllByCategory(category);
-        return productMapper.productsToProductDto(products);
+        List<ProductDto> productsDto = productMapper.entitiesToDto(products);
+        return productsDto;
     }
 
     @GetMapping(value="/users/products/{category}")
     @ResponseStatus(HttpStatus.CREATED)
     public List<ProductDto> findByCategoryOrdered(@PathVariable("category") String category, @RequestParam("ordering") String ordering){
         List<Product> products = productService.findAllByCategoryOrdered(category, ordering);
-        return productMapper.productsToProductDto(products);
+        List<ProductDto> productsDto = productMapper.entitiesToDto(products);
+        return productsDto;
     }
 
     @GetMapping(value="/users/products/search")
     @ResponseStatus(HttpStatus.OK)
     public ProductDto findByModelOrArticle(@RequestBody @Validated ProductSearchParameterDto parameterDto){
-        ProductSearchParameter parameter = parameterMapper.parameterDtoToParameter(parameterDto);
+        ProductSearchParameter parameter = parameterMapper.dtoToEntity(parameterDto);
         Product product = productService.findByModelOrArticle(parameter);
-        return productMapper.productToProductDto(product);
+        ProductDto productDto = productMapper.entityToDto(product);
+        return productDto;
     }
 
 }

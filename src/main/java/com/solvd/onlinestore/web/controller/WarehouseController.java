@@ -19,9 +19,9 @@ public class WarehouseController {
     @PostMapping("/products/{productId}/warehouses")
     @ResponseStatus(HttpStatus.CREATED)
     public WarehouseDto save(@PathVariable("productId") Long productId, @RequestBody @Validated WarehouseDto warehouseDto){
-        Warehouse warehouse = warehouseMapper.warehouseDtoToWarehouse(warehouseDto);
+        Warehouse warehouse = warehouseMapper.dtoToEntity(warehouseDto);
         warehouse = warehouseService.save(warehouse, productId);
-        warehouseDto = warehouseMapper.warehouseToWarehouseDto(warehouse);
+        warehouseDto = warehouseMapper.entityToDto(warehouse);
         return warehouseDto;
     }
 

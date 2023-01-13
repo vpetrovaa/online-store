@@ -7,6 +7,6 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface ProductSearchParameterMapper {
 
-    ProductSearchParameter parameterDtoToParameter(ProductSearchParameterDto parameterDto);
+    ProductSearchParameter dtoToEntity(ProductSearchParameterDto parameterDto);
 
 }

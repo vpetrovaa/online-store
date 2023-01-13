@@ -20,7 +20,7 @@ public class OrderMapper {
             order.setDeliveryMethod(Order.DeliveryEnum.valueOf(rs.getString("order_delivery_method").toUpperCase()));
             order.setPaymentMethod(Order.PaymentEnum.valueOf(rs.getString("order_payment_method").toUpperCase()));
             order.setOrderDate(rs.getTimestamp("order_date").toLocalDateTime());
-            order.setStatus(rs.getString("order_status"));
+            order.setStatus(Order.StatusEnum.valueOf(rs.getString("order_status").toUpperCase()));
             order.setAddress(rs.getString("order_address"));
             order.setDeliveryDate(rs.getDate("order_delivery_date").toLocalDate());
             User user = UserMapper.mapByIdNameSurname(rs);
@@ -39,7 +39,7 @@ public class OrderMapper {
             order.setDeliveryMethod(Order.DeliveryEnum.valueOf(rs.getString("order_delivery_method").toUpperCase()));
             order.setPaymentMethod(Order.PaymentEnum.valueOf(rs.getString("order_payment_method").toUpperCase()));
             order.setOrderDate(rs.getTimestamp("order_date").toLocalDateTime());
-            order.setStatus(rs.getString("order_status"));
+            order.setStatus(Order.StatusEnum.valueOf(rs.getString("order_status").toUpperCase()));
             order.setAddress(rs.getString("order_address"));
             order.setDeliveryDate(rs.getDate("order_delivery_date").toLocalDate());
             User user = UserMapper.mapByIdNameSurname(rs);

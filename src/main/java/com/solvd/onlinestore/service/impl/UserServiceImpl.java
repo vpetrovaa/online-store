@@ -18,8 +18,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public User findById(Long id) {
-        return userRepository.findById(id)
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceDoesNotExistException("There are no user with such id"));
+        return user;
 
     }
 

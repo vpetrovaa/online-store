@@ -30,7 +30,8 @@ public class BasketServiceImpl implements BasketService {
     @Override
     @Transactional
     public List<Basket> findAllByUser(Long id) {
-        return basketRepository.findAllByUserId(id);
+        List<Basket> baskets = basketRepository.findAllByUserId(id);
+        return baskets;
     }
 
     @Override

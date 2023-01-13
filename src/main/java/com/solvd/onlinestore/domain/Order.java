@@ -16,7 +16,7 @@ public class Order {
     private DeliveryEnum deliveryMethod;
     private PaymentEnum paymentMethod;
     private LocalDateTime orderDate;
-    private String status;
+    private StatusEnum status;
     private String address;
     private LocalDate deliveryDate;
 
@@ -52,6 +52,24 @@ public class Order {
         @JsonValue
         public String getPaymentMethod() {
             return paymentMethod;
+        }
+
+    }
+
+    public enum StatusEnum {
+
+        TRUE("TRUE"),
+        FALSE("FALSE");
+
+        private final String status;
+
+        StatusEnum(String status) {
+            this.status = status;
+        }
+
+        @JsonValue
+        public String getStatus() {
+            return status;
         }
 
     }

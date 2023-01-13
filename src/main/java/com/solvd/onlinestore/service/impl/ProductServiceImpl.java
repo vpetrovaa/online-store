@@ -22,14 +22,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public Product findById(Long id){
-        return productRepository.findById(id)
+        Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceDoesNotExistException("There are no product with id" + id));
+        return product;
     }
 
     @Override
     @Transactional
     public List<Product> findAll(){
-        return productRepository.findAll();
+        List<Product> products = productRepository.findAll();
+        return products;
     }
 
     @Override
@@ -51,7 +53,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public List<Product> findAllByCategory(String category){
-        return productRepository.findAllByCategory(category);
+        List<Product> products = productRepository.findAllByCategory(category);
+        return products;
     }
 
     @Override
@@ -62,15 +65,17 @@ public class ProductServiceImpl implements ProductService {
             case "desc" -> " order by cost desc";
             default -> throw new WrongOrderingException("Exception in ordering title(asc or desc only) ");
         };
-        return productRepository.findAllByCategoryOrdered(category, sorting);
+        List<Product> products = productRepository.findAllByCategoryOrdered(category, sorting);;
+        return products;
     }
 
     @Override
     @Transactional
     public Product findByModelOrArticle(ProductSearchParameter parameter){
-        return productRepository.findByModelOrArticle(parameter.getParameter())
+        Product product = productRepository.findByModelOrArticle(parameter.getParameter())
                 .orElseThrow(() -> new ResourceDoesNotExistException("There are " +
-                "no product with such article or/and model - " + parameter.getParameter()));
+                        "no product with such article or/and model - " + parameter.getParameter()));
+        return product;
     }
 
     @Override

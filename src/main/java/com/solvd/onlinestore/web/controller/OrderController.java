@@ -21,9 +21,9 @@ public class OrderController {
     @PostMapping(value = "/users/{userId}/orders")
     @ResponseStatus(HttpStatus.CREATED)
     public OrderDto save(@PathVariable("userId") Long userId, @RequestBody @Validated OrderDto orderDto){
-        Order order = orderMapper.orderDtoToOrder(orderDto);
+        Order order = orderMapper.dtoToEntity(orderDto);
         order = orderService.save(order, userId);
-        orderDto = orderMapper.orderToOrderDto(order);
+        orderDto = orderMapper.entityToDto(order);
         return orderDto;
     }
 
@@ -31,14 +31,15 @@ public class OrderController {
     @ResponseStatus(HttpStatus.OK)
     public List<OrderDto> findAllByStatus(@RequestParam("status") String status){
         List<Order> orders = orderService.findAllByStatus(status);
-        return orderMapper.ordersToOrderDto(orders);
+        List<OrderDto> ordersDto = orderMapper.entitiesToDto(orders);
+        return ordersDto;
     }
 
     @PutMapping(value = "/orders/{id}")
     @ResponseStatus(HttpStatus.OK)
     public OrderDto confirm(@PathVariable("id") Long id){
         Order order = orderService.updateStatus(id);
-        OrderDto orderDto = orderMapper.orderToOrderDto(order);
+        OrderDto orderDto = orderMapper.entityToDto(order);
         return  orderDto;
     }
 

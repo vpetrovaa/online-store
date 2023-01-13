@@ -9,8 +9,8 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {OrderMapper.class})
 public interface BasketMapper {
 
-    BasketDto basketToBasketDto(Basket basket);
+    BasketDto entityToDto(Basket basket);
 
-    List<BasketDto> basketsToBasketDto(List<Basket> baskets);
+    List<BasketDto> entitiesToDto(List<Basket> baskets);
 
 }

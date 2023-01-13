@@ -20,7 +20,7 @@ public class BasketController {
     @PostMapping("/users/{userId}/baskets/{productId}")
     @ResponseStatus(HttpStatus.CREATED)
     public BasketDto save(@PathVariable("productId") Long productId, @PathVariable("userId") Long userId){
-        BasketDto basketDto = basketMapper.basketToBasketDto(basketService.save(productId, userId));
+        BasketDto basketDto = basketMapper.entityToDto(basketService.save(productId, userId));
         return basketDto;
     }
 
@@ -34,7 +34,7 @@ public class BasketController {
     @ResponseStatus(HttpStatus.OK)
     public List<BasketDto> findAllByUser(@PathVariable(name = "id") Long id){
         List<Basket> baskets = basketService.findAllByUser(id);
-        List<BasketDto> basketsDto = basketMapper.basketsToBasketDto(baskets);
+        List<BasketDto> basketsDto = basketMapper.entitiesToDto(baskets);
         return basketsDto;
     }
 

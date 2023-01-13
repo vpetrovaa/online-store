@@ -12,10 +12,10 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {BasketMapper.class, OrderMapper.class, WarehouseMapper.class})
 public interface ProductMapper {
 
-    ProductDto productToProductDto(Product product);
+    ProductDto entityToDto(Product product);
 
-    Product productDtoToProduct(ProductDto productDto);
+    Product dtoToEntity(ProductDto productDto);
 
-    List<ProductDto> productsToProductDto(List<Product> products);
+    List<ProductDto> entitiesToDto(List<Product> products);
 
 }

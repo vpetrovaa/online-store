@@ -7,8 +7,8 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface WarehouseMapper {
 
-    WarehouseDto warehouseToWarehouseDto(Warehouse warehouse);
+    WarehouseDto entityToDto(Warehouse warehouse);
 
-    Warehouse warehouseDtoToWarehouse(WarehouseDto warehouseDto);
+    Warehouse dtoToEntity(WarehouseDto warehouseDto);
 
 }

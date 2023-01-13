@@ -88,7 +88,7 @@ public class OrderRepositoryImpl implements OrderRepository {
         try{
             Connection conn = Objects.requireNonNull(dataSource.getConnection());
             try(PreparedStatement ps = conn.prepareStatement(UPDATE_QUERY)){
-                ps.setString(1, order.getStatus());
+                ps.setString(1, order.getStatus().getStatus().toUpperCase());
                 ps.setLong(2, order.getId());
                 ps.executeUpdate();
             }

@@ -39,7 +39,6 @@ public class OrderDto {
 
     private String status;
     @Size(min = 10, max = 80, message = "Address must be from 10 to 80 symbols")
-    @NotNull(message = "Address cant be null")
     @NotBlank(message = "Address cant be empty")
     private String address;
 
