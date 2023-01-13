@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 public class UserMapper {
 
     @SneakyThrows
-    public static User mapByIdNameSurname(ResultSet rs){
+    public static User mapByIdNameSurname(ResultSet rs) {
         User user = new User();
         user.setId(rs.getLong("user_id"));
         user.setName(rs.getString("user_name"));

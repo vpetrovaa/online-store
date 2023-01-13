@@ -23,32 +23,32 @@ create table if not exists users (
 create table if not exists baskets (
     id bigserial primary key,
     product_id bigint null,
-    constraint fk_product foreign key(product_id) references products(id) on delete cascade on update cascade,
     user_id bigint null,
-    constraint fk_user foreign key(user_id) references users(id) on delete cascade on update cascade
+    constraint fk_user foreign key(user_id) references users(id) on delete cascade on update cascade,
+    constraint fk_product foreign key(product_id) references products(id) on delete cascade on update cascade
 );
 create table if not exists orders (
     id bigserial primary key,
     user_id bigint null,
-    constraint fk_user foreign key(user_id) references users(id) on delete cascade on update cascade,
     amount real default(10) null,
     delivery_method varchar(30) not null,
     payment_method varchar(30) not null,
     order_date timestamp not null,
     status varchar(30) default('false') not null,
     address varchar(80) not null,
-    delivery_date date not null
+    delivery_date date not null,
+    constraint fk_user foreign key(user_id) references users(id) on delete cascade on update cascade
 );
 create table if not exists order_points (
     id bigserial primary key,
     order_id bigint not null,
-    constraint fk_order foreign key(order_id) references orders(id) on delete cascade on update cascade,
     product_id bigint not null,
-    constraint fk_user foreign key(product_id) references products(id) on delete cascade on update cascade
+    constraint fk_user foreign key(product_id) references products(id) on delete cascade on update cascade,
+    constraint fk_order foreign key(order_id) references orders(id) on delete cascade on update cascade
 );
 create table if not exists warehouses (
     id bigserial primary key,
     product_id bigint null,
-    constraint fk_product foreign key(product_id) references products(id) on delete cascade on update cascade,
-    amount int not null
+    amount int not null,
+    constraint fk_product foreign key(product_id) references products(id) on delete cascade on update cascade
 );

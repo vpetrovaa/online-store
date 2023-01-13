@@ -1,8 +1,8 @@
 package com.solvd.onlinestore.repository.mapper;
 
 import com.solvd.onlinestore.domain.Basket;
-import com.solvd.onlinestore.domain.product.Product;
 import com.solvd.onlinestore.domain.User;
+import com.solvd.onlinestore.domain.product.Product;
 import lombok.SneakyThrows;
 
 import java.sql.ResultSet;
@@ -13,9 +13,9 @@ import java.util.Optional;
 public class BasketMapper {
 
     @SneakyThrows
-    public static List<Basket> mapForFindAll(ResultSet rs){
+    public static List<Basket> mapForFindAll(ResultSet rs) {
         List<Basket> baskets = new ArrayList<>();
-        while(rs.next()){
+        while (rs.next()) {
             Basket basket = new Basket();
             basket.setId(rs.getLong("basket_id"));
             Product product = ProductMapper.mapByIdCategoryModelCost(rs);
@@ -28,8 +28,8 @@ public class BasketMapper {
     }
 
     @SneakyThrows
-    public static Optional<Basket> mapForFindOne(ResultSet rs){
-        if(rs.next()){
+    public static Optional<Basket> mapForFindOne(ResultSet rs) {
+        if (rs.next()) {
             Basket basket = new Basket();
             basket.setId(rs.getLong("basket_id"));
             Product product = ProductMapper.mapByIdCategoryModelCost(rs);

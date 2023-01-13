@@ -18,20 +18,19 @@ public class BasketServiceImpl implements BasketService {
 
     @Override
     @Transactional
-    public Basket save(Long productId, Long userId) {
+    public Basket create(Long productId, Long userId) {
         Basket basket = new Basket();
-        if(basketRepository.isExistByProductAndUser(productId, userId)){
+        if (basketRepository.isExistByProductAndUser(productId, userId)) {
             throw new ResourceAlreadyExistsException("You already have this product in your basket, user_id is " + userId);
         }
-        basketRepository.save(basket, productId, userId);
+        basketRepository.create(basket, productId, userId);
         return basket;
     }
 
     @Override
     @Transactional
     public List<Basket> findAllByUser(Long id) {
-        List<Basket> baskets = basketRepository.findAllByUserId(id);
-        return baskets;
+        return basketRepository.findAllByUserId(id);
     }
 
     @Override

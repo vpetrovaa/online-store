@@ -11,16 +11,16 @@ import java.util.Optional;
 
 public class OrderMapper {
     @SneakyThrows
-    public static List<Order> mapForFindAll(ResultSet rs){
+    public static List<Order> mapForFindAll(ResultSet rs) {
         List<Order> orders = new ArrayList<>();
-        while(rs.next()){
+        while (rs.next()) {
             Order order = new Order();
             order.setId(rs.getLong("order_id"));
             order.setAmount(rs.getBigDecimal("order_amount"));
-            order.setDeliveryMethod(Order.DeliveryEnum.valueOf(rs.getString("order_delivery_method").toUpperCase()));
-            order.setPaymentMethod(Order.PaymentEnum.valueOf(rs.getString("order_payment_method").toUpperCase()));
+            order.setDeliveryMethod(Order.Delivery.valueOf(rs.getString("order_delivery_method").toUpperCase()));
+            order.setPaymentMethod(Order.Payment.valueOf(rs.getString("order_payment_method").toUpperCase()));
             order.setOrderDate(rs.getTimestamp("order_date").toLocalDateTime());
-            order.setStatus(Order.StatusEnum.valueOf(rs.getString("order_status").toUpperCase()));
+            order.setStatus(Order.Status.valueOf(rs.getString("order_status").toUpperCase()));
             order.setAddress(rs.getString("order_address"));
             order.setDeliveryDate(rs.getDate("order_delivery_date").toLocalDate());
             User user = UserMapper.mapByIdNameSurname(rs);
@@ -31,15 +31,15 @@ public class OrderMapper {
     }
 
     @SneakyThrows
-    public static Optional<Order> mapForFindOne(ResultSet rs){
-        if(rs.next()){
+    public static Optional<Order> mapForFindOne(ResultSet rs) {
+        if (rs.next()) {
             Order order = new Order();
             order.setId(rs.getLong("order_id"));
             order.setAmount(rs.getBigDecimal("order_amount"));
-            order.setDeliveryMethod(Order.DeliveryEnum.valueOf(rs.getString("order_delivery_method").toUpperCase()));
-            order.setPaymentMethod(Order.PaymentEnum.valueOf(rs.getString("order_payment_method").toUpperCase()));
+            order.setDeliveryMethod(Order.Delivery.valueOf(rs.getString("order_delivery_method").toUpperCase()));
+            order.setPaymentMethod(Order.Payment.valueOf(rs.getString("order_payment_method").toUpperCase()));
             order.setOrderDate(rs.getTimestamp("order_date").toLocalDateTime());
-            order.setStatus(Order.StatusEnum.valueOf(rs.getString("order_status").toUpperCase()));
+            order.setStatus(Order.Status.valueOf(rs.getString("order_status").toUpperCase()));
             order.setAddress(rs.getString("order_address"));
             order.setDeliveryDate(rs.getDate("order_delivery_date").toLocalDate());
             User user = UserMapper.mapByIdNameSurname(rs);

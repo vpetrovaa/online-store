@@ -1,11 +1,10 @@
 package com.solvd.onlinestore.repository.impl;
 
-import com.solvd.onlinestore.config.DataSourceConfig;
 import com.solvd.onlinestore.domain.Basket;
-
 import com.solvd.onlinestore.domain.exception.SqlException;
-import com.solvd.onlinestore.repository.mapper.BasketMapper;
 import com.solvd.onlinestore.repository.BasketRepository;
+import com.solvd.onlinestore.repository.DataSourceConfig;
+import com.solvd.onlinestore.repository.mapper.BasketMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -18,14 +17,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BasketRepositoryImpl implements BasketRepository {
 
-    private final DataSourceConfig dataSource;
     private static final String CREATE_QUERY = "insert into baskets(product_id, user_id) values(?, ?);";
     private static final String DELETE_QUERY = "delete from baskets where id = ?;";
     private static final String FIND_ALL_BY_USER_QUERY = """
             select baskets.id as basket_id,
             users.id as user_id, users.email as user_email, users.name as user_name,
-            products.id as product_id, products.category as product_category, products.model as product_model, products.cost as product_cost  
-            from store.baskets 
+            products.id as product_id, products.category as product_category, products.model as product_model, products.cost as product_cost \s
+            from store.baskets\s
             left join store.products on (baskets.product_id = products.id)
             left join store.users on (baskets.user_id = users.id)
             where user_id = ?;
@@ -33,8 +31,8 @@ public class BasketRepositoryImpl implements BasketRepository {
     private static final String FIND_BY_ID_QUERY = """
             select baskets.id as basket_id,
             users.id as user_id, users.email as user_email, users.name as user_name,
-            products.id as product_id, products.category as product_category, products.model as product_model, products.cost as product_cost  
-            from store.baskets 
+            products.id as product_id, products.category as product_category, products.model as product_model, products.cost as product_cost \s
+            from store.baskets\s
             left store.join products on (baskets.product_id = products.id)
             left store.join users on (baskets.user_id = users.id)
             where id = ?;
@@ -42,12 +40,14 @@ public class BasketRepositoryImpl implements BasketRepository {
     private static final String IS_EXIST_BY_PRODUCT_AND_USER_QUERY = "select id from baskets where product_id = ? and user_id = ?;";
     private static final String DELETE_BY_USER_QUERY = "delete from baskets where user_id = ?;";
 
+    private final DataSourceConfig dataSource;
+
 
     @Override
-    public void save(Basket basket, Long productId, Long userId) {
-        try{
+    public void create(Basket basket, Long productId, Long userId) {
+        try {
             Connection conn = Objects.requireNonNull(dataSource.getConnection());
-            try(PreparedStatement ps = conn.prepareStatement(CREATE_QUERY, Statement.RETURN_GENERATED_KEYS)) {
+            try (PreparedStatement ps = conn.prepareStatement(CREATE_QUERY, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setLong(1, productId);
                 ps.setLong(2, userId);
                 ps.executeUpdate();
@@ -64,9 +64,9 @@ public class BasketRepositoryImpl implements BasketRepository {
 
     @Override
     public void delete(Long id) {
-        try{
+        try {
             Connection conn = Objects.requireNonNull(dataSource.getConnection());
-            try(PreparedStatement ps = conn.prepareStatement(DELETE_QUERY)){
+            try (PreparedStatement ps = conn.prepareStatement(DELETE_QUERY)) {
                 ps.setLong(1, id);
                 ps.executeUpdate();
             }
@@ -77,11 +77,11 @@ public class BasketRepositoryImpl implements BasketRepository {
 
     @Override
     public List<Basket> findAllByUserId(Long id) {
-        try{
+        try {
             Connection conn = dataSource.getConnection();
-            try(PreparedStatement ps = conn.prepareStatement(FIND_ALL_BY_USER_QUERY)){
+            try (PreparedStatement ps = conn.prepareStatement(FIND_ALL_BY_USER_QUERY)) {
                 ps.setLong(1, id);
-                try(ResultSet rs = ps.executeQuery()) {
+                try (ResultSet rs = ps.executeQuery()) {
                     return BasketMapper.mapForFindAll(rs);
                 }
             }
@@ -93,11 +93,11 @@ public class BasketRepositoryImpl implements BasketRepository {
 
     @Override
     public Optional<Basket> findById(Long id) {
-        try{
+        try {
             Connection conn = dataSource.getConnection();
-            try(PreparedStatement ps = conn.prepareStatement(FIND_BY_ID_QUERY)){
-                ps.setLong(1,id);
-                try(ResultSet rs = ps.executeQuery()) {
+            try (PreparedStatement ps = conn.prepareStatement(FIND_BY_ID_QUERY)) {
+                ps.setLong(1, id);
+                try (ResultSet rs = ps.executeQuery()) {
                     return BasketMapper.mapForFindOne(rs);
                 }
             }
@@ -109,13 +109,13 @@ public class BasketRepositoryImpl implements BasketRepository {
     @Override
     public boolean isExistByProductAndUser(Long productId, Long userId) {
         Long idFromDb = null;
-        try{
+        try {
             Connection conn = dataSource.getConnection();
-            try(PreparedStatement ps = conn.prepareStatement(IS_EXIST_BY_PRODUCT_AND_USER_QUERY)){
-                ps.setLong(1,productId);
-                ps.setLong(2,userId);
-                try(ResultSet rs = ps.executeQuery()) {
-                    if(rs.next()){
+            try (PreparedStatement ps = conn.prepareStatement(IS_EXIST_BY_PRODUCT_AND_USER_QUERY)) {
+                ps.setLong(1, productId);
+                ps.setLong(2, userId);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
                         idFromDb = rs.getLong("id");
                     }
                 }
@@ -128,9 +128,9 @@ public class BasketRepositoryImpl implements BasketRepository {
 
     @Override
     public void deleteAllByUserId(Long id) {
-        try{
+        try {
             Connection conn = Objects.requireNonNull(dataSource.getConnection());
-            try(PreparedStatement ps = conn.prepareStatement(DELETE_BY_USER_QUERY)){
+            try (PreparedStatement ps = conn.prepareStatement(DELETE_BY_USER_QUERY)) {
                 ps.setLong(1, id);
                 ps.executeUpdate();
             }

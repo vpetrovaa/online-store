@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface OrderService {
 
-    Order save(Order order, Long userId);
+    Order create(Order order, Long userId);
 
     List<Order> findAllByStatus(String status);
 

@@ -16,8 +16,8 @@ public class OrderPointServiceImpl implements OrderPointService {
 
     @Override
     @Transactional
-    public void save(Basket basket, Order order) {
-        orderPointRepository.save(basket, order);
+    public void create(Basket basket, Order order) {
+        orderPointRepository.create(basket, order);
     }
 
 }

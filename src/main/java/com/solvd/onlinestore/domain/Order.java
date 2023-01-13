@@ -13,21 +13,21 @@ public class Order {
     private Long id;
     private User user;
     private BigDecimal amount;
-    private DeliveryEnum deliveryMethod;
-    private PaymentEnum paymentMethod;
+    private Delivery deliveryMethod;
+    private Payment paymentMethod;
     private LocalDateTime orderDate;
-    private StatusEnum status;
+    private Status status;
     private String address;
     private LocalDate deliveryDate;
 
-    public enum DeliveryEnum {
+    public enum Delivery {
 
         PICKUP("Pickup"),
         COURIER("Courier");
 
         private final String deliveryMethod;
 
-        DeliveryEnum(String deliveryMethod) {
+        Delivery(String deliveryMethod) {
             this.deliveryMethod = deliveryMethod;
         }
 
@@ -38,14 +38,14 @@ public class Order {
 
     }
 
-    public enum PaymentEnum {
+    public enum Payment {
 
         CARD("Card"),
         CASH("Cash");
 
         private final String paymentMethod;
 
-        PaymentEnum(String paymentMethod) {
+        Payment(String paymentMethod) {
             this.paymentMethod = paymentMethod;
         }
 
@@ -56,14 +56,14 @@ public class Order {
 
     }
 
-    public enum StatusEnum {
+    public enum Status {
 
         TRUE("TRUE"),
         FALSE("FALSE");
 
         private final String status;
 
-        StatusEnum(String status) {
+        Status(String status) {
             this.status = status;
         }
 

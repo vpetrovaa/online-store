@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BasketService {
 
-    Basket save(Long productId, Long userId);
+    Basket create(Long productId, Long userId);
 
     List<Basket> findAllByUser(Long id);
 

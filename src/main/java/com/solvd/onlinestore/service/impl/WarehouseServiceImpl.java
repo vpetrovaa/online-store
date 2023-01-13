@@ -17,8 +17,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     @Transactional
-    public Warehouse save(Warehouse warehouse, Long productId) {
-        warehouseRepository.save(warehouse, productService.findById(productId));
+    public Warehouse create(Warehouse warehouse, Long productId) {
+        warehouseRepository.create(warehouse, productService.findById(productId));
         productService.updateAmount(productId, warehouse.getAmount());
         return warehouse;
     }

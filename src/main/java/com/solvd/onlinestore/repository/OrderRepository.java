@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface OrderRepository {
 
-    void save(Order order, Long userId, BigDecimal amount);
+    void create(Order order, Long userId, BigDecimal amount);
 
     List<Order> findAllByStatus(String status);
 

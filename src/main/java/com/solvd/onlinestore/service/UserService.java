@@ -6,6 +6,6 @@ public interface UserService {
 
     User findById(Long id);
 
-    User save(User user);
+    User create(User user);
 
 }

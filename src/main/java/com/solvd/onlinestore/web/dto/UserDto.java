@@ -35,7 +35,7 @@ public class UserDto {
     @NotBlank(message = "Phone cant be empty")
     private String phone;
 
-    private User.RoleEnum role;
+    private User.Role role;
 
     @Size(min = 10, max = 30, message = "Password must be from 10 to 30 symbols")
     @NotBlank(message = "Password cant be empty")

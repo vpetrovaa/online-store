@@ -1,4 +1,4 @@
-package com.solvd.onlinestore.config;
+package com.solvd.onlinestore.web;
 
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
@@ -18,7 +18,7 @@ public class DateFormatConfig {
     private static final String dateTimeFormat = "yyyy/MM/dd HH:mm";
 
     @Bean
-    public Jackson2ObjectMapperBuilderCustomizer jsomCustomizer(){
+    public Jackson2ObjectMapperBuilderCustomizer jsomCustomizer() {
         return builder -> builder.simpleDateFormat(dateTimeFormat)
                 .serializerByType(LocalDateTime.class,
                         new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(dateTimeFormat)))

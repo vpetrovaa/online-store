@@ -5,6 +5,6 @@ import com.solvd.onlinestore.domain.Order;
 
 public interface OrderPointService {
 
-    void save(Basket basket, Order order);
+    void create(Basket basket, Order order);
 
 }

@@ -28,10 +28,10 @@ public class OrderDto {
     private BigDecimal amount;
 
     @NotNull(message = "Delivery cant be null")
-    private Order.DeliveryEnum deliveryMethod;
+    private Order.Delivery deliveryMethod;
 
     @NotNull(message = "Payment cant be null")
-    private Order.PaymentEnum paymentMethod;
+    private Order.Payment paymentMethod;
 
     private LocalDateTime orderDate;
 

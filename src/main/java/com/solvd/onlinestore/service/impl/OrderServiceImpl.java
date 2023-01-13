@@ -22,31 +22,29 @@ public class OrderServiceImpl implements OrderService {
     private final OrderPointService orderPointService;
 
     @Override
-    public Order save(Order order, Long userId) {
+    public Order create(Order order, Long userId) {
         List<Basket> baskets = basketService.findAllByUser(userId);
-        if(baskets.isEmpty()){
+        if (baskets.isEmpty()) {
             throw new ResourceDoesNotExistException("Your basket is empty");
         }
-        BigDecimal amount = BigDecimal.valueOf(0.0);
-        for(Basket b: baskets) {
-            amount = amount.add(b.getProduct().getCost());
-        }
-        orderRepository.save(order, userId, amount);
-        baskets.forEach((b) -> orderPointService.save(b, order));
+        BigDecimal amount = baskets.stream()
+                .map(b -> b.getProduct().getCost())
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        orderRepository.create(order, userId, amount);
+        baskets.forEach((b) -> orderPointService.create(b, order));
         basketService.deleteAllByUserId(userId);
         return order;
     }
 
     @Override
     public List<Order> findAllByStatus(String status) {
-        List<Order> orders = orderRepository.findAllByStatus(status);
-        return orders;
+        return orderRepository.findAllByStatus(status);
     }
 
     @Override
     public Order updateStatus(Long id) {
         Order order = findById(id);
-        order.setStatus(Order.StatusEnum.valueOf("TRUE"));
+        order.setStatus(Order.Status.valueOf("TRUE"));
         orderRepository.updateStatus(order);
         return order;
     }

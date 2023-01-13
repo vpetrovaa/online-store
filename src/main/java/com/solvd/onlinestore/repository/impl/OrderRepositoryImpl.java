@@ -1,8 +1,8 @@
 package com.solvd.onlinestore.repository.impl;
 
-import com.solvd.onlinestore.config.DataSourceConfig;
 import com.solvd.onlinestore.domain.Order;
 import com.solvd.onlinestore.domain.exception.SqlException;
+import com.solvd.onlinestore.repository.DataSourceConfig;
 import com.solvd.onlinestore.repository.OrderRepository;
 import com.solvd.onlinestore.repository.mapper.OrderMapper;
 import lombok.RequiredArgsConstructor;
@@ -19,13 +19,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OrderRepositoryImpl implements OrderRepository {
 
-    private final DataSourceConfig dataSource;
     private static final String FIND_BY_ID_QUERY = """
             select orders.id as order_id, orders.amount as order_amount, orders.delivery_method as order_delivery_method,
             orders.payment_method as order_payment_method, orders.order_date as order_date, orders.status as order_status,
             orders.address as order_address, orders.delivery_date as order_delivery_date,
             users.id as user_id, users.email as user_email, users.name as user_name
-            from store.orders 
+            from store.orders\s
             left join store.users on (orders.user_id = users.id)
             where orders.id = ?;
             """;
@@ -34,7 +33,7 @@ public class OrderRepositoryImpl implements OrderRepository {
             orders.payment_method as order_payment_method, orders.order_date as order_date, orders.status as order_status,
             orders.address as order_address, orders.delivery_date as order_delivery_date,
             users.id as user_id, users.email as user_email, users.name as user_name
-            from store.orders 
+            from store.orders\s
             left join store.users on (orders.user_id = users.id)
             where status = ?;
             """;
@@ -42,11 +41,13 @@ public class OrderRepositoryImpl implements OrderRepository {
             "address, delivery_date) values(?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String UPDATE_QUERY = "update orders set status = ? where id = ?;";
 
+    private final DataSourceConfig dataSource;
+
     @Override
-    public void save(Order order, Long userId, BigDecimal amount) {
-        try{
+    public void create(Order order, Long userId, BigDecimal amount) {
+        try {
             Connection conn = Objects.requireNonNull(dataSource.getConnection());
-            try(PreparedStatement ps = conn.prepareStatement(CREATE_QUERY, Statement.RETURN_GENERATED_KEYS)){
+            try (PreparedStatement ps = conn.prepareStatement(CREATE_QUERY, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setLong(1, userId);
                 ps.setBigDecimal(2, amount);
                 ps.setString(3, order.getDeliveryMethod().getDeliveryMethod().toUpperCase());
@@ -69,11 +70,11 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public List<Order> findAllByStatus(String status) {
-        try{
+        try {
             Connection conn = dataSource.getConnection();
-            try(PreparedStatement ps = conn.prepareStatement(FIND_BY_STATUS_QUERY)){
+            try (PreparedStatement ps = conn.prepareStatement(FIND_BY_STATUS_QUERY)) {
                 ps.setString(1, status);
-                try(ResultSet rs = ps.executeQuery()) {
+                try (ResultSet rs = ps.executeQuery()) {
                     return OrderMapper.mapForFindAll(rs);
                 }
             }
@@ -85,9 +86,9 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public void updateStatus(Order order) {
-        try{
+        try {
             Connection conn = Objects.requireNonNull(dataSource.getConnection());
-            try(PreparedStatement ps = conn.prepareStatement(UPDATE_QUERY)){
+            try (PreparedStatement ps = conn.prepareStatement(UPDATE_QUERY)) {
                 ps.setString(1, order.getStatus().getStatus().toUpperCase());
                 ps.setLong(2, order.getId());
                 ps.executeUpdate();
@@ -99,11 +100,11 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public Optional<Order> findById(Long id) {
-        try{
+        try {
             Connection conn = dataSource.getConnection();
-            try(PreparedStatement ps = conn.prepareStatement(FIND_BY_ID_QUERY)){
+            try (PreparedStatement ps = conn.prepareStatement(FIND_BY_ID_QUERY)) {
                 ps.setLong(1, id);
-                try(ResultSet rs = ps.executeQuery()) {
+                try (ResultSet rs = ps.executeQuery()) {
                     return OrderMapper.mapForFindOne(rs);
                 }
             }

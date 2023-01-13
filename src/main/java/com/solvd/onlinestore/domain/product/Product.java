@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 public class Product {
 
     private Long id;
-    private CategoryEnum category;
+    private Category category;
     private String article;
     private String model;
     private String description;
@@ -17,7 +17,7 @@ public class Product {
     private String warehouse;
     private int amount;
 
-    public enum CategoryEnum {
+    public enum Category {
 
         STOCKS("Stocks"),
         TABLES("Tables"),
@@ -27,7 +27,7 @@ public class Product {
 
         private final String category;
 
-        CategoryEnum(String category) {
+        Category(String category) {
             this.category = category;
         }
 

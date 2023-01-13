@@ -6,7 +6,6 @@ import com.solvd.onlinestore.web.dto.OrderDto;
 import com.solvd.onlinestore.web.mapper.OrderMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,29 +18,19 @@ public class OrderController {
     private final OrderService orderService;
     private final OrderMapper orderMapper;
 
-    @PostMapping(value = "/users/{userId}/orders")
-    @ResponseStatus(HttpStatus.CREATED)
-    public OrderDto save(@PathVariable("userId") Long userId, @RequestBody @Validated OrderDto orderDto){
-        Order order = orderMapper.dtoToEntity(orderDto);
-        order = orderService.save(order, userId);
-        orderDto = orderMapper.entityToDto(order);
-        return orderDto;
-    }
 
     @GetMapping("/orders")
     @ResponseStatus(HttpStatus.OK)
-    public List<OrderDto> findAllByStatus(@RequestParam("status") String status){
+    public List<OrderDto> findAllByStatus(@RequestParam("status") String status) {
         List<Order> orders = orderService.findAllByStatus(status);
-        List<OrderDto> ordersDto = orderMapper.entityToDto(orders);
-        return ordersDto;
+        return orderMapper.entityToDto(orders);
     }
 
     @PutMapping(value = "/orders/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public OrderDto confirm(@PathVariable("id") Long id){
+    public OrderDto confirm(@PathVariable("id") Long id) {
         Order order = orderService.updateStatus(id);
-        OrderDto orderDto = orderMapper.entityToDto(order);
-        return  orderDto;
+        return orderMapper.entityToDto(order);
     }
 
 }

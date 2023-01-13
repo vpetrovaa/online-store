@@ -13,17 +13,17 @@ public class User {
     private String surname;
     private String email;
     private String phone;
-    private RoleEnum role;
+    private Role role;
     private String password;
     private LocalDateTime registrationTime;
 
-    public enum RoleEnum {
+    public enum Role {
         ROLE_ADMIN("ROLE_ADMIN"),
         ROLE_USER("ROLE_USER");
 
         private final String authority;
 
-        RoleEnum(String authority) {
+        Role(String authority) {
             this.authority = authority;
         }
 

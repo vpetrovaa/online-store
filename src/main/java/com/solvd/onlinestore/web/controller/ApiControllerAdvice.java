@@ -5,8 +5,8 @@ import com.solvd.onlinestore.domain.exception.ResourceDoesNotExistException;
 import com.solvd.onlinestore.domain.exception.SqlException;
 import com.solvd.onlinestore.web.dto.ResponseDto;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestControllerAdvice
-public class StoreControllerAdvice{
+public class ApiControllerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -34,35 +34,35 @@ public class StoreControllerAdvice{
 
     @ExceptionHandler(ResourceDoesNotExistException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseDto handleResourceDoesNotExistException(ResourceDoesNotExistException ex){
+    public ResponseDto handleResourceDoesNotExistException(ResourceDoesNotExistException ex) {
         log.error(ex.getMessage());
         return new ResponseDto(List.of(ex.getMessage()));
     }
 
     @ExceptionHandler(ResourceAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseDto handleResourceAlreadyExistsException(ResourceAlreadyExistsException ex){
+    public ResponseDto handleResourceAlreadyExistsException(ResourceAlreadyExistsException ex) {
         log.error(ex.getMessage());
         return new ResponseDto(List.of(ex.getMessage()));
     }
 
     @ExceptionHandler(SqlException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseDto handleSqlException(SqlException ex){
+    public ResponseDto handleSqlException(SqlException ex) {
         log.error(ex.getMessage(), ex.getCause());
         return new ResponseDto(List.of(ex.getMessage()));
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseDto handleHttpMessageNotReadableException(HttpMessageNotReadableException ex){
+    public ResponseDto handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
         log.error(ex.getMessage());
         return new ResponseDto(List.of(ex.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseDto handleException(Exception ex){
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseDto handleException(Exception ex) {
         log.error(ex.getMessage(), ex.getCause());
         return new ResponseDto(List.of(ex.getMessage()));
     }

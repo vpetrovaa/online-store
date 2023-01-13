@@ -11,7 +11,7 @@ public interface ProductRepository {
 
     List<Product> findAll();
 
-    void save(Product product);
+    void create(Product product);
 
     void delete(Long id);
 

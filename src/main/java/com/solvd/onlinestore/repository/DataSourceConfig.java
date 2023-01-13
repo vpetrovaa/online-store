@@ -1,4 +1,4 @@
-package com.solvd.onlinestore.config;
+package com.solvd.onlinestore.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +13,7 @@ public class DataSourceConfig {
 
     private final DataSource dataSource;
 
-    public Connection getConnection(){
+    public Connection getConnection() {
         return DataSourceUtils.getConnection(dataSource);
     }
 

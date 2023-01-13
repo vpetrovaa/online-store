@@ -19,7 +19,7 @@ public class ProductDto {
     private Long id;
 
     @NotNull(message = "Category cant be null")
-    private Product.CategoryEnum category;
+    private Product.Category category;
 
     @Size(min = 7, max = 7, message = "Article must be 7 symbols")
     @NotBlank(message = "Article cant be null")
