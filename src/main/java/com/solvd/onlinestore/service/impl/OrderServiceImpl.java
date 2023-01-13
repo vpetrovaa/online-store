@@ -46,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order updateStatus(Long id) {
         Order order = findById(id);
-        order.setStatus(Order.StatusEnum.valueOf("true"));
+        order.setStatus(Order.StatusEnum.valueOf("TRUE"));
         orderRepository.updateStatus(order);
         return order;
     }
