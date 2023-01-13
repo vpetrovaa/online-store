@@ -75,7 +75,7 @@ public class UserRepositoryImpl implements UserRepository {
 
 
     @Override
-    public boolean isExistsByEmail(String email) {
+    public boolean isExistByEmail(String email) {
         Long idFromDb = null;
         try{
             Connection conn = dataSource.getConnection();

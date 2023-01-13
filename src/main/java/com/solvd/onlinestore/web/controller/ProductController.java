@@ -34,7 +34,7 @@ public class ProductController {
     @ResponseStatus(HttpStatus.OK)
     public List<ProductDto> findAll(){
         List<Product> products = productService.findAll();
-        List<ProductDto> productsDto = productMapper.entitiesToDto(products);
+        List<ProductDto> productsDto = productMapper.entityToDto(products);
         return productsDto;
     }
 
@@ -47,15 +47,15 @@ public class ProductController {
 
     @DeleteMapping("/products/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@PathVariable(name = "id") Long id){
-        productService.deleteById(id);
+    public void delete(@PathVariable(name = "id") Long id){
+        productService.delete(id);
     }
 
     @GetMapping(value="/users/products")
     @ResponseStatus(HttpStatus.CREATED)
     public List<ProductDto> findByCategory(@RequestParam("category") String category){
         List<Product> products = productService.findAllByCategory(category);
-        List<ProductDto> productsDto = productMapper.entitiesToDto(products);
+        List<ProductDto> productsDto = productMapper.entityToDto(products);
         return productsDto;
     }
 
@@ -63,7 +63,7 @@ public class ProductController {
     @ResponseStatus(HttpStatus.CREATED)
     public List<ProductDto> findByCategoryOrdered(@PathVariable("category") String category, @RequestParam("ordering") String ordering){
         List<Product> products = productService.findAllByCategoryOrdered(category, ordering);
-        List<ProductDto> productsDto = productMapper.entitiesToDto(products);
+        List<ProductDto> productsDto = productMapper.entityToDto(products);
         return productsDto;
     }
 

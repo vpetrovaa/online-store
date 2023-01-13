@@ -13,7 +13,7 @@ public interface ProductRepository {
 
     void save(Product product);
 
-    void deleteById(Long id);
+    void delete(Long id);
 
     List<Product> findAllByCategory(String category);
 

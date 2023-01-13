@@ -10,6 +10,8 @@ public interface BasketService {
 
     List<Basket> findAllByUser(Long id);
 
-    void deleteById(Long id);
+    void delete(Long id);
+
+    void deleteAllByUserId(Long userId);
 
 }

@@ -1,8 +1,8 @@
 package com.solvd.onlinestore.service.impl;
 
+import com.solvd.onlinestore.domain.exception.SqlException;
 import com.solvd.onlinestore.domain.product.Product;
 import com.solvd.onlinestore.domain.product.ProductSearchParameter;
-import com.solvd.onlinestore.domain.exception.WrongOrderingException;
 import com.solvd.onlinestore.domain.exception.ResourceAlreadyExistsException;
 import com.solvd.onlinestore.domain.exception.ResourceDoesNotExistException;
 import com.solvd.onlinestore.repository.ProductRepository;
@@ -46,8 +46,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public void deleteById(Long id){
-        productRepository.deleteById(id);
+    public void delete(Long id){
+        productRepository.delete(id);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
         sorting = switch (sorting){
             case "asc" -> " order by cost asc";
             case "desc" -> " order by cost desc";
-            default -> throw new WrongOrderingException("Exception in ordering title(asc or desc only) ");
+            default -> throw new SqlException("Exception in ordering title(asc or desc only) ");
         };
         List<Product> products = productRepository.findAllByCategoryOrdered(category, sorting);;
         return products;

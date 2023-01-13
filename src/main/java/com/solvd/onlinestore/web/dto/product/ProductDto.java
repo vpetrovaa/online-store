@@ -1,21 +1,17 @@
 package com.solvd.onlinestore.web.dto.product;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.solvd.onlinestore.domain.product.Product;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.math.BigDecimal;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Setter
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductDto {
 
     private Long id;

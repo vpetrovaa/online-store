@@ -1,6 +1,5 @@
 package com.solvd.onlinestore.web.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.solvd.onlinestore.domain.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -16,7 +15,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
 
     private Long id;

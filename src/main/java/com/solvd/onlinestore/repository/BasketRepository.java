@@ -9,7 +9,7 @@ public interface BasketRepository {
 
     void save(Basket basket, Long productId, Long userId);
 
-    void deleteById(Long id);
+    void delete(Long id);
 
     List<Basket> findAllByUserId(Long id);
 

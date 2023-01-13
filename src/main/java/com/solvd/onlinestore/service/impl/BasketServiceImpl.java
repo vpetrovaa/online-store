@@ -36,8 +36,13 @@ public class BasketServiceImpl implements BasketService {
 
     @Override
     @Transactional
-    public void deleteById(Long id) {
-        basketRepository.deleteById(id);
+    public void delete(Long id) {
+        basketRepository.delete(id);
+    }
+
+    @Override
+    public void deleteAllByUserId(Long userId) {
+        basketRepository.deleteAllByUserId(userId);
     }
 
 }

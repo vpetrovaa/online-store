@@ -1,6 +1,5 @@
 package com.solvd.onlinestore.web.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.solvd.onlinestore.domain.Order;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
@@ -19,7 +18,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderDto {
 
     private Long id;

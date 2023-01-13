@@ -11,6 +11,6 @@ public interface BasketMapper {
 
     BasketDto entityToDto(Basket basket);
 
-    List<BasketDto> entitiesToDto(List<Basket> baskets);
+    List<BasketDto> entityToDto(List<Basket> baskets);
 
 }

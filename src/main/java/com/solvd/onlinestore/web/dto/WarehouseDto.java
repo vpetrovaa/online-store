@@ -1,6 +1,5 @@
 package com.solvd.onlinestore.web.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.solvd.onlinestore.web.dto.product.ProductDto;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Min;
@@ -14,7 +13,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class WarehouseDto {
 
     private Long id;

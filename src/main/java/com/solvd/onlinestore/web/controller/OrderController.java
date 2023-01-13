@@ -31,7 +31,7 @@ public class OrderController {
     @ResponseStatus(HttpStatus.OK)
     public List<OrderDto> findAllByStatus(@RequestParam("status") String status){
         List<Order> orders = orderService.findAllByStatus(status);
-        List<OrderDto> ordersDto = orderMapper.entitiesToDto(orders);
+        List<OrderDto> ordersDto = orderMapper.entityToDto(orders);
         return ordersDto;
     }
 

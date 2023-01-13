@@ -106,7 +106,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public void deleteById(Long id){
+    public void delete(Long id){
         try{
             Connection conn = Objects.requireNonNull(dataSource.getConnection());
             try(PreparedStatement ps = conn.prepareStatement(DELETE_QUERY)){

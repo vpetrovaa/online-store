@@ -27,14 +27,14 @@ public class BasketController {
     @DeleteMapping("/users/baskets/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable(name = "id") Long id){
-        basketService.deleteById(id);
+        basketService.delete(id);
     }
 
     @GetMapping("/users/{id}/baskets")
     @ResponseStatus(HttpStatus.OK)
     public List<BasketDto> findAllByUser(@PathVariable(name = "id") Long id){
         List<Basket> baskets = basketService.findAllByUser(id);
-        List<BasketDto> basketsDto = basketMapper.entitiesToDto(baskets);
+        List<BasketDto> basketsDto = basketMapper.entityToDto(baskets);
         return basketsDto;
     }
 
