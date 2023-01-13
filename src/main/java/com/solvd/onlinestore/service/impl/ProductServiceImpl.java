@@ -59,13 +59,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public List<Product> findAllByCategoryOrdered(String category, String sorting){
-        sorting = switch (sorting){
+    public List<Product> findAllByCategoryOrdered(String category, String ordering){
+        ordering = switch (ordering){
             case "asc" -> " order by cost asc";
             case "desc" -> " order by cost desc";
             default -> throw new SqlException("Exception in ordering title(asc or desc only) ");
         };
-        List<Product> products = productRepository.findAllByCategoryOrdered(category, sorting);;
+        List<Product> products = productRepository.findAllByCategoryOrdered(category, ordering);;
         return products;
     }
 

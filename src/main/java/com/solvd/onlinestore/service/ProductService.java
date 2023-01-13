@@ -17,7 +17,7 @@ public interface ProductService {
 
     List<Product> findAllByCategory(String category);
 
-    List<Product> findAllByCategoryOrdered(String category, String sorting);
+    List<Product> findAllByCategoryOrdered(String category, String ordering);
 
     Product findByModelOrArticle(ProductSearchParameter parameter);
 
