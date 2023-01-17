@@ -17,6 +17,7 @@
 		<mapstruct.version>1.5.3.Final</mapstruct.version>
 		<slf4j.version>2.0.6</slf4j.version>
 		<maven.version>3.8.1</maven.version>
+		<mybatis.spring.version>3.0.1</mybatis.spring.version>
 	</properties>
 
 	<dependencies>
@@ -63,6 +64,13 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>${mybatis.spring.version}</version>
+		</dependency>
+
 
 	</dependencies>
 

@@ -5,7 +5,6 @@ import com.solvd.onlinestore.domain.Order;
 import com.solvd.onlinestore.domain.exception.ResourceDoesNotExistException;
 import com.solvd.onlinestore.repository.OrderRepository;
 import com.solvd.onlinestore.service.BasketService;
-import com.solvd.onlinestore.service.OrderPointService;
 import com.solvd.onlinestore.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,6 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final BasketService basketService;
-    private final OrderPointService orderPointService;
 
     @Override
     public Order create(Order order, Long userId) {
@@ -31,7 +29,6 @@ public class OrderServiceImpl implements OrderService {
                 .map(b -> b.getProduct().getCost())
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         orderRepository.create(order, userId, amount);
-        baskets.forEach((b) -> orderPointService.create(b, order));
         basketService.deleteAllByUserId(userId);
         return order;
     }
@@ -44,7 +41,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order updateStatus(Long id) {
         Order order = findById(id);
-        order.setStatus(Order.Status.valueOf("TRUE"));
         orderRepository.updateStatus(order);
         return order;
     }
