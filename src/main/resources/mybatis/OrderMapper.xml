@@ -4,8 +4,13 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.onlinestore.repository.OrderRepository">
 
-    <resultMap id="order" type="com.solvd.onlinestore.domain.Order" autoMapping="false">
-        <id property="id" column="id"/>
+    <insert id='create' useGeneratedKeys='true' keyProperty='order.id'>
+        insert into orders(user_id, amount, delivery_method, payment_method, order_date, status, address, delivery_date)
+        values(#{userId}, #{amount}, #{order.deliveryMethod}, #{order.paymentMethod}, now()::timestamp, 'FALSE', #{order.address}, #{order.deliveryDate})
+    </insert>
+
+    <resultMap type="com.solvd.onlinestore.domain.Order" id="OrderResultMap" autoMapping="false">
+        <id property="id" column="order_id"/>
         <result property="amount" column="amount"/>
         <result property="deliveryMethod" column="delivery_method"/>
         <result property="paymentMethod" column="payment_method"/>
@@ -13,41 +18,38 @@
         <result property="status" column="status"/>
         <result property="address" column="address"/>
         <result property="deliveryDate" column="delivery_date"/>
-        <association property="user" javaType="com.solvd.onlinestore.domain.User" column="user_id">
-            <id property = "id" column="user_id"/>
-            <result property="name" column="user_name"/>
-            <result property="email" column="user_email"/>
-        </association>
+        <association property="user" resultMap="com.solvd.onlinestore.repository.UserRepository.UserResultMap"/>
     </resultMap>
 
-    <insert id='create' useGeneratedKeys='true' keyProperty='order.id'>
-        insert into orders(user_id, amount, delivery_method, payment_method, order_date, status, address, delivery_date)
-        values(#{userId}, #{amount}, #{order.deliveryMethod}, #{order.paymentMethod}, now()::timestamp, 'FALSE', #{order.address}, #{order.deliveryDate})
-    </insert>
+    <sql id="selectFields">
+        select o.id as order_id,
+               o.amount as amount,
+               o.delivery_method as delivery_method,
+               o.payment_method as payment_method,
+               o.order_date as order_date,
+               o.status as status,
+               o.address as order_address,
+               o.delivery_date as delivery_date,
+               u.id as user_id,
+               u.email as email,
+               u.name as name
+        from Orders o
+               left join Users u on u.user_id = users.id
+    </sql>
+
+    <select id="findAllByStatus" resultMap="OrderResultMap">
+        <include refid="selectFields"/>
+        where o.status = #{status}
+    </select>
+
+    <select id="findById" resultMap="OrderResultMap">
+        <include refid="selectFields"/>
+        where o.id = #{id}
+    </select>
 
     <update id="updateStatus">
-        update orders set status = 'TRUE'
-        where id = #{order.id}
+        update Orders o set status = 'TRUE'
+        where o.id = #{order.id}
     </update>
-
-    <select id="findAllByStatus" resultMap="order">
-        select orders.id as id, orders.amount as amount, orders.delivery_method as delivery_method,
-        orders.payment_method as payment_method, orders.order_date as order_date, orders.status as status,
-        orders.address as order_address, orders.delivery_date as delivery_date,
-        users.id as user_id, users.email as user_email, users.name as user_name
-        from orders
-        left join users on (orders.user_id = users.id)
-        where status = #{status}
-    </select>
-
-    <select id="findById" resultMap="order">
-        select orders.id as id, orders.amount as amount, orders.delivery_method as delivery_method,
-        orders.payment_method as payment_method, orders.order_date as order_date, orders.status as status,
-        orders.address as order_address, orders.delivery_date as delivery_date,
-        users.id as user_id, users.email as user_email, users.name as user_name
-        from orders
-        left join users on (orders.user_id = users.id)
-        where orders.id = #{id}
-    </select>
 
 </mapper>

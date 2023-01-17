@@ -4,67 +4,58 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.onlinestore.repository.BasketRepository">
 
-    <resultMap type='com.solvd.onlinestore.domain.Basket' id='basket' autoMapping="false">
-        <id property='id' column='id'/>
-        <result property='productId' column='product_id'/>
-        <result property='userId' column='user_id'/>
-    </resultMap>
-
-    <resultMap id="detailedBasket" type="com.solvd.onlinestore.domain.Basket" autoMapping="false">
-        <id property="id" column="id"/>
-        <association property="user" javaType="com.solvd.onlinestore.domain.User" column="user_id">
-            <id property="id" column="user_id"/>
-            <result property="name" column="user_name"/>
-            <result property="email" column="user_email"/>
-        </association>
-        <association property="product" javaType="com.solvd.onlinestore.domain.product.Product" column="product_id">
-            <id property="id" column="product_id"/>
-            <result property="category" column="product_category"/>
-            <result property="model" column="product_model"/>
-            <result property="cost" column="product_cost"/>
-        </association>
-    </resultMap>
-
     <insert id='create' parameterType='com.solvd.onlinestore.domain.Basket' useGeneratedKeys='true'
             keyProperty='basket.id'>
         insert into baskets(product_id, user_id)
         values(#{productId}, #{userId})
     </insert>
 
-    <select id="isExistByProductAndUser" resultType="boolean">
-        select exists(select 1 from baskets where product_id = #{productId} and user_id = #{userId})
+    <resultMap id="BasketResultMap" type="com.solvd.onlinestore.domain.Basket" autoMapping="false">
+        <id property="id" column="basket_id"/>
+        <association property="user" resultMap="com.solvd.onlinestore.repository.UserRepository.UserResultMap"/>
+        <association property="product" resultMap="com.solvd.onlinestore.repository.ProductRepository.ProductResultMap"/>
+    </resultMap>
+
+    <sql id="selectFields">
+        select b.id as basket_id,
+               u.id as user_id,
+               u.email as email,
+               u.name as name,
+               p.id as product_id,
+               p.category as category,
+               p.model as model,
+               p.cost as cost
+        from Baskets b
+               left join Products p on b.product_id = p.id
+               left join Users u on b.user_id = u.id
+    </sql>
+
+    <sql id="userIdCondition">
+        where b.user_id = #{userId}
+    </sql>
+
+    <sql id="idCondition">
+        where b.id = #{id}
+    </sql>
+
+    <select id="findById" resultMap="BasketResultMap">
+        <include refid="selectFields"/>
+        <include refid="idCondition"/>
+    </select>
+
+    <select id="findAllByUserId" resultMap="BasketResultMap">
+        <include refid="selectFields"/>
+        <include refid="userIdCondition"/>
     </select>
 
     <delete id="delete">
-        delete from baskets
-        where id = #{id}
+        delete from Baskets b
+        <include refid="idCondition"/>
     </delete>
 
-    <select id="findById" resultMap="detailedBasket">
-        select baskets.id as id,
-        users.id as user_id, users.email as user_email, users.name as user_name,
-        products.id as product_id, products.category as product_category, products.model as product_model, products.cost
-        as product_cost
-        from baskets
-        left join products on (baskets.product_id = products.id)
-        left join users on (baskets.user_id = users.id)
-        where id = #{id}
-    </select>
-
-    <select id="findAllByUserId" resultMap="detailedBasket">
-        select baskets.id as id,
-        users.id as user_id, users.email as user_email, users.name as user_name,
-        products.id as product_id, products.category as product_category, products.model as product_model, products.cost
-        as product_cost
-        from baskets
-        left join products on (baskets.product_id = products.id)
-        left join users on (baskets.user_id = users.id)
-        where baskets.user_id = #{userId}
-    </select>
-
     <delete id="deleteAllByUserId">
-        delete from baskets
-        where user_id = #{userId}
+        delete from Baskets b
+        <include refid="userIdCondition"/>
     </delete>
 
 </mapper>
