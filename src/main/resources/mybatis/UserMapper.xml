@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.onlinestore.repository.UserRepository">
+
+    <resultMap type='com.solvd.onlinestore.domain.User' id='user' autoMapping="false">
+        <id property='id' column='id'/>
+        <result property='name' column='name'/>
+        <result property='surname' column='surname'/>
+        <result property='email' column='email'/>
+        <result property='phone' column='phone'/>
+        <result property='password' column='password'/>
+        <result property='role' column='role'/>
+        <result property='registrationTime' column='registration_time'/>
+    </resultMap>
+
+    <select id="isExistByEmail" resultType="boolean">
+        select exists(select 1 from users where email = #{email})
+    </select>
+
+    <insert id='create' parameterType='com.solvd.onlinestore.domain.User' useGeneratedKeys='true' keyProperty='id'>
+        insert into users(name, surname, email, phone, password, registration_time)
+        values(#{name}, #{surname}, #{email}, #{phone}, #{password}, now()::timestamp)
+    </insert>
+
+    <select id='findById' resultMap='user'>
+        select id, name, surname, email, phone, password, role, registration_time
+        from users
+        where id = #{id}
+    </select>
+
+</mapper>

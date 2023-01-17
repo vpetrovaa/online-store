@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.onlinestore.repository.ProductRepository">
+
+
+    <resultMap type='com.solvd.onlinestore.domain.product.Product' id='product' autoMapping="false">
+        <id property='id' column='id'/>
+        <result property='category' column='category'/>
+        <result property='article' column='article'/>
+        <result property='description' column='description'/>
+        <result property='model' column='model'/>
+        <result property='cost' column='cost'/>
+        <result property='amount' column='amount'/>
+    </resultMap>
+
+    <select id='findById' resultMap='product'>
+        select id, category, article, description, model, cost, amount
+        from products
+        where id = #{id}
+    </select>
+
+    <select id='findAll' resultMap='product'>
+        select id, category, article, description, model, cost, amount
+        from products
+    </select>
+
+    <insert id='create' parameterType='com.solvd.onlinestore.domain.product.Product' useGeneratedKeys='true' keyProperty='id'>
+        insert into products(category, article, model, amount, description, cost)
+        values(#{category}, #{article}, #{model}, #{amount}, #{description}, #{cost})
+    </insert>
+
+    <select id="isExistByArticleOrModel" resultType="boolean">
+        select exists(select 1 from products where article = #{article} or model = #{model})
+    </select>
+
+    <update id="updateAmount">
+        update products set amount = #{product.amount}
+        where id = #{product.id}
+    </update>
+
+    <delete id="delete">
+        delete from products
+        where id = #{id}
+    </delete>
+
+    <select id='findAllByCategory' resultMap='product'>
+        select id, category, article, description, model, cost, amount
+        from products
+        where category = #{category}
+    </select>
+
+    <select id='findAllByCategoryOrdered' resultMap='product'>
+        select id, category, article, description, model, cost, amount
+        from products
+        where category = #{category}
+        order by cost #{ordering}
+    </select>
+
+    <select id='findByModelOrArticle' resultMap='product'>
+        select id, category, article, description, model, cost, amount
+        from products
+        where model = #{parameter} or article = #{parameter}
+    </select>
+
+</mapper>
