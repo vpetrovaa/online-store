@@ -1,22 +1,25 @@
 package com.solvd.onlinestore.repository;
 
 import com.solvd.onlinestore.domain.Basket;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Optional;
 
+@Mapper
 public interface BasketRepository {
 
-    void create(Basket basket, Long productId, Long userId);
+    void create(Basket basket, @Param("productId") Long productId, @Param("userId") Long userId);
 
-    void delete(Long id);
+    void delete(@Param("id") Long id);
 
-    List<Basket> findAllByUserId(Long id);
+    List<Basket> findAllByUserId(@Param("userId") Long userId);
 
-    Optional<Basket> findById(Long id);
+    Optional<Basket> findById(@Param("id") Long id);
 
-    boolean isExistByProductAndUser(Long productId, Long userId);
+    boolean isExistByProductAndUser(@Param("productId") Long productId, @Param("userId") Long userId);
 
-    void deleteAllByUserId(Long id);
+    void deleteAllByUserId(@Param("userId") Long userId);
 
 }
