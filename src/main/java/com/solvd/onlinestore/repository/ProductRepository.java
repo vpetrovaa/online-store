@@ -1,31 +1,28 @@
 package com.solvd.onlinestore.repository;
 
 import com.solvd.onlinestore.domain.product.Product;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Optional;
 
-@Mapper
 public interface ProductRepository {
 
-    Optional<Product> findById(@Param("id") Long id);
+    Optional<Product> findById(Long id);
 
     List<Product> findAll();
 
     void create(Product product);
 
-    void delete(@Param("id") Long id);
+    void delete(Long id);
 
-    List<Product> findAllByCategory(@Param("category") String category);
+    List<Product> findAllByCategory(String category);
 
-    List<Product> findAllByCategoryOrdered(@Param("category") String category, @Param("ordering") String ordering);
+    List<Product> findAllByCategoryOrdered(String category, String ordering);
 
-    Optional<Product> findByModelOrArticle(@Param("parameter") String parameter);
+    Optional<Product> findByModelOrArticle(String parameter);
 
-    void updateAmount(@Param("product") Product product);
+    void updateAmount(Product product);
 
-    boolean isExistByArticleOrModel(@Param("article") String article, @Param("model") String model);
+    boolean isExistByArticleOrModel(String article, String model);
 
 }

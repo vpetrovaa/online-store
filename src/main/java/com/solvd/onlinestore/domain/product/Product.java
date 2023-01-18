@@ -19,11 +19,11 @@ public class Product {
 
     public enum Category {
 
-        STOCKS("STOCKS"),
-        TABLES("TABLES"),
-        CHAIRS("CHAIRS"),
-        WARDROBES("WARDROBES"),
-        SOFAS("SOFAS");
+        STOCKS("Stocks"),
+        TABLES("Tables"),
+        CHAIRS("Chairs"),
+        WARDROBES("Wardrobes"),
+        SOFAS("Sofas");
 
         private final String category;
 
