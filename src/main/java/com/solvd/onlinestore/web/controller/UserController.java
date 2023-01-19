@@ -9,6 +9,16 @@ import com.solvd.onlinestore.service.BasketService;
 import com.solvd.onlinestore.service.OrderService;
 import com.solvd.onlinestore.service.ProductService;
 import com.solvd.onlinestore.service.UserService;
+import com.solvd.onlinestore.web.dto.BasketDto;
+import com.solvd.onlinestore.web.dto.OrderDto;
+import com.solvd.onlinestore.web.dto.UserDto;
+import com.solvd.onlinestore.web.dto.product.ProductDto;
+import com.solvd.onlinestore.web.dto.product.ProductSearchParameterDto;
+import com.solvd.onlinestore.web.mapper.BasketMapper;
+import com.solvd.onlinestore.web.mapper.OrderMapper;
+import com.solvd.onlinestore.web.mapper.UserMapper;
+import com.solvd.onlinestore.web.mapper.product.ProductMapper;
+import com.solvd.onlinestore.web.mapper.product.ProductSearchParameterMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -22,20 +32,28 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final UserMapper userMapper;
     private final BasketService basketService;
+    private final BasketMapper basketMapper;
     private final OrderService orderService;
+    private final OrderMapper orderMapper;
     private final ProductService productService;
+    private final ProductMapper productMapper;
+    private final ProductSearchParameterMapper parameterMapper;
 
     @PostMapping("/users/registration")
     @ResponseStatus(HttpStatus.CREATED)
-    public User create(@RequestBody @Validated User user) {
-        return userService.create(user);
+    public UserDto create(@RequestBody @Validated UserDto userDto) {
+        User user = userMapper.dtoToEntity(userDto);
+        user = userService.create(user);
+        userDto = userMapper.entityToDto(user);
+        return userDto;
     }
 
     @PostMapping("/users/{userId}/baskets/{productId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Basket create(@PathVariable("productId") Long productId, @PathVariable("userId") Long userId) {
-        return basketService.create(productId, userId);
+    public BasketDto create(@PathVariable("productId") Long productId, @PathVariable("userId") Long userId) {
+        return basketMapper.entityToDto(basketService.create(productId, userId));
     }
 
     @DeleteMapping("/users/baskets/{id}")
@@ -46,33 +64,40 @@ public class UserController {
 
     @GetMapping("/users/{id}/baskets")
     @ResponseStatus(HttpStatus.OK)
-    public List<Basket> findAllByUser(@PathVariable(name = "id") Long id) {
-        return basketService.findAllByUser(id);
+    public List<BasketDto> findAllByUser(@PathVariable(name = "id") Long id) {
+        List<Basket> baskets = basketService.findAllByUser(id);
+        return basketMapper.entityToDto(baskets);
     }
 
     @PostMapping(value = "/users/{userId}/orders")
     @ResponseStatus(HttpStatus.CREATED)
-    public Order create(@PathVariable("userId") Long userId, @RequestBody @Validated Order order) {
-        return orderService.create(order, userId);
+    public OrderDto create(@PathVariable("userId") Long userId, @RequestBody @Validated OrderDto orderDto) {
+        Order order = orderMapper.dtoToEntity(orderDto);
+        order = orderService.create(order, userId);
+        orderDto = orderMapper.entityToDto(order);
+        return orderDto;
     }
 
     @GetMapping(value = "/users/products/{category}")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<Product> findByCategoryOrdered(@PathVariable("category") String category, @RequestParam("ordering") String ordering) {
+    public List<ProductDto> findByCategoryOrdered(@PathVariable("category") String category, @RequestParam("ordering") String ordering) {
         List<Product> products = productService.findAllByCategoryOrdered(category, ordering);
-        return productService.findAllByCategoryOrdered(category, ordering);
+        return productMapper.entityToDto(products);
     }
 
     @GetMapping(value = "/users/products/search")
     @ResponseStatus(HttpStatus.OK)
-    public Product findByModelOrArticle(@RequestBody @Validated ProductSearchParameter parameter) {
-        return productService.findByModelOrArticle(parameter);
+    public ProductDto findByModelOrArticle(@RequestBody @Validated ProductSearchParameterDto parameterDto) {
+        ProductSearchParameter parameter = parameterMapper.dtoToEntity(parameterDto);
+        Product product = productService.findByModelOrArticle(parameter);
+        return productMapper.entityToDto(product);
     }
 
     @GetMapping(value = "/users/products")
     @ResponseStatus(HttpStatus.CREATED)
-    public List<Product> findByCategory(@RequestParam("category") String category) {
-        return productService.findAllByCategory(category);
+    public List<ProductDto> findByCategory(@RequestParam("category") String category) {
+        List<Product> products = productService.findAllByCategory(category);
+        return productMapper.entityToDto(products);
     }
 
 

@@ -18,6 +18,8 @@
 		<slf4j.version>2.0.6</slf4j.version>
 		<maven.version>3.8.1</maven.version>
 		<mybatis.spring.version>3.0.1</mybatis.spring.version>
+		<jwt.version>0.9.1</jwt.version>
+		<jackson.version>2.11.4</jackson.version>
 	</properties>
 
 	<dependencies>
@@ -69,6 +71,24 @@
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>${mybatis.spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>${jwt.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
 		</dependency>
 
 

@@ -11,3 +11,6 @@ spring:
     default-property-inclusion: NON_NULL
 mybatis:
   mapper-locations: classpath:mybatis/*.xml
+jwt:
+  secret:
+    key: qBTmv4oXFFR2GwjexDJ4t6fsIUIUhhXqlktXjXdkcyygs8nPVEwMfo29VDRRepYDVV5IkIxBMzr7OEHXEHd37w

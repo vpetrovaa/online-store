@@ -16,7 +16,7 @@ create table if not exists users (
     surname varchar(30) not null,
     email varchar(30) unique not null,
     phone varchar(12) not null,
-    password varchar(30) not null,
+    password varchar(200) not null,
     role varchar(10) default('ROLE_USER') not null,
     registration_time timestamp not null
 );
