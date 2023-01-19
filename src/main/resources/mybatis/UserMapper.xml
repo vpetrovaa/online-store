@@ -29,12 +29,12 @@
         select exists(select 1 from Users u where u.email = #{email})
     </select>
 
-    <select id="findByEmail" resultMap="UserResultMap">
+    <select id="findById" resultMap="UserResultMap">
         <include refid="selectFields"/>
         where u.id = #{id}
     </select>
 
-    <select id="findById" resultMap="UserResultMap">
+    <select id="findByEmail" resultMap="UserResultMap">
         <include refid="selectFields"/>
         where u.email = #{email}
     </select>
