@@ -6,6 +6,7 @@ import com.solvd.onlinestore.web.dto.OrderDto;
 import com.solvd.onlinestore.web.mapper.OrderMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class OrderController {
 
     @PutMapping(value = "/orders/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasPermissionToConfirmOrder(#id)")
     public OrderDto confirm(@PathVariable("id") Long id) {
         Order order = orderService.updateStatus(id);
         return orderMapper.entityToDto(order);

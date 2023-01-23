@@ -1,5 +1,6 @@
 package com.solvd.onlinestore.web.controller;
 
+import com.solvd.onlinestore.domain.exception.AuthenticationException;
 import com.solvd.onlinestore.domain.exception.ResourceAlreadyExistsException;
 import com.solvd.onlinestore.domain.exception.ResourceDoesNotExistException;
 import com.solvd.onlinestore.domain.exception.SqlException;
@@ -56,6 +57,13 @@ public class ApiControllerAdvice {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseDto handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        log.error(ex.getMessage());
+        return new ResponseDto(List.of(ex.getMessage()));
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseDto handleAuthenticationException(AuthenticationException ex) {
         log.error(ex.getMessage());
         return new ResponseDto(List.of(ex.getMessage()));
     }

@@ -22,16 +22,16 @@ public class User {
         ROLE_ADMIN("ROLE_ADMIN"),
         ROLE_USER("ROLE_USER");
 
-        private final String authority;
+        @JsonValue
+        private final String role;
 
-        Role(String authority) {
-            this.authority = authority;
+        Role(String role) {
+            this.role = role;
         }
 
         @Override
-        @JsonValue
         public String getAuthority() {
-            return authority;
+            return role;
         }
 
     }
