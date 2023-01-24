@@ -57,7 +57,7 @@ public class UserController {
     private final RefreshMapper refreshMapper;
 
     @Operation(summary = "Authorization",
-            description = "Users authorization by username and password")
+            description = "User's authorization by username and password")
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.CREATED)
     public JwtTokenDto login(@Parameter(description = "Request with login and password of user") @RequestBody @Validated RequestUserDto requestUserDto) {
