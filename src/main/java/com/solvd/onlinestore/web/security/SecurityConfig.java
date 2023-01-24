@@ -45,7 +45,7 @@ public class SecurityConfig {
                 .exceptionHandling()
                 .authenticationEntryPoint(((request, response, authException) -> {
                     response.setStatus(HttpStatus.UNAUTHORIZED.value());
-                    response.getWriter().write("Bad credentials");
+                    response.getWriter().write("Unauthorized");
                 }))
                 .accessDeniedHandler((request, response, exception) -> {
                     response.setStatus(HttpStatus.FORBIDDEN.value());
@@ -53,9 +53,10 @@ public class SecurityConfig {
                 })
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/users/login", "api/v1/users/refresh").permitAll()
+                .requestMatchers("/api/v1/users/login", "/api/v1/users/refresh", "/api/v1/users/registration").permitAll()
                 .requestMatchers("/api/v1/users/**").hasRole("USER")
-                .requestMatchers("/**").hasRole("ADMIN")
+                .requestMatchers("/api/v1/**").hasRole("ADMIN")
+                .anyRequest().permitAll()
                 .and()
                 .addFilterAfter(jwtFilter, ExceptionTranslationFilter.class)
                 .build();
