@@ -8,6 +8,9 @@ import com.solvd.onlinestore.web.dto.WarehouseDto;
 import com.solvd.onlinestore.web.dto.product.ProductDto;
 import com.solvd.onlinestore.web.mapper.WarehouseMapper;
 import com.solvd.onlinestore.web.mapper.product.ProductMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -18,6 +21,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
+@Tag(name = "Product", description = "Controller for admin authority to manipulate products")
 public class ProductController {
 
     private final ProductService productService;
@@ -25,23 +29,30 @@ public class ProductController {
     private final WarehouseService warehouseService;
     private final WarehouseMapper warehouseMapper;
 
+    @Operation(summary = "Create new warehouse",
+            description = "Create new warehouse to add amount to product")
     @PostMapping("/products/{productId}/warehouses")
     @ResponseStatus(HttpStatus.CREATED)
-    public WarehouseDto create(@PathVariable("productId") Long productId, @RequestBody @Validated WarehouseDto warehouseDto) {
+    public WarehouseDto create(@Parameter(description = "Product id") @PathVariable("productId") Long productId,
+                               @Parameter(description = "Warehouse with given amount") @RequestBody @Validated WarehouseDto warehouseDto) {
         Warehouse warehouse = warehouseMapper.dtoToEntity(warehouseDto);
         warehouse = warehouseService.create(warehouse, productId);
         warehouseDto = warehouseMapper.entityToDto(warehouse);
         return warehouseDto;
     }
 
+    @Operation(summary = "Create new product",
+            description = "Add new product to store catalog")
     @PostMapping("/products")
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductDto create(@RequestBody @Validated ProductDto productDto) {
+    public ProductDto create(@Parameter(description = "Product to be added") @RequestBody @Validated ProductDto productDto) {
         Product product = productMapper.dtoToEntity(productDto);
         productDto = productMapper.entityToDto(productService.create(product));
         return productDto;
     }
 
+    @Operation(summary = "Find all products",
+            description = "Find all products from the catalog")
     @GetMapping("/products")
     @ResponseStatus(HttpStatus.OK)
     public List<ProductDto> findAll() {
@@ -49,15 +60,19 @@ public class ProductController {
         return productMapper.entityToDto(products);
     }
 
+    @Operation(summary = "Find product by id",
+            description = "Find one product in catalog by id")
     @GetMapping(value = "/products/{id}")
-    public ProductDto findById(@PathVariable("id") Long id) {
+    public ProductDto findById(@Parameter(description = "Product id") @PathVariable("id") Long id) {
         Product product = productService.findById(id);
         return productMapper.entityToDto(product);
     }
 
+    @Operation(summary = "Delete product by id",
+            description = "Delete product from a catalog by id")
     @DeleteMapping("/products/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable(name = "id") Long id) {
+    public void delete(@Parameter(description = "Product id") @PathVariable(name = "id") Long id) {
         productService.delete(id);
     }
 

@@ -1,10 +1,10 @@
 package com.solvd.onlinestore.domain.jwt;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class RequestUser {
 
     private String username;

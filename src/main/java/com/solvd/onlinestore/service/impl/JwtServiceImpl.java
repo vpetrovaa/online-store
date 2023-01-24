@@ -1,7 +1,7 @@
 package com.solvd.onlinestore.service.impl;
 
 import com.solvd.onlinestore.domain.User;
-import com.solvd.onlinestore.domain.jwt.JwtToken;
+import com.solvd.onlinestore.web.security.domain.JwtToken;
 import com.solvd.onlinestore.service.JwtService;
 import com.solvd.onlinestore.service.property.JwtProperties;
 import com.solvd.onlinestore.web.security.JwtUser;

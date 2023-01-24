@@ -1,4 +1,4 @@
-package com.solvd.onlinestore.domain.jwt;
+package com.solvd.onlinestore.web.security.domain;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

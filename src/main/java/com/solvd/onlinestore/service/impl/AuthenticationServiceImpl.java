@@ -2,8 +2,8 @@ package com.solvd.onlinestore.service.impl;
 
 import com.solvd.onlinestore.domain.User;
 import com.solvd.onlinestore.domain.exception.AuthenticationException;
-import com.solvd.onlinestore.domain.jwt.JwtToken;
-import com.solvd.onlinestore.domain.jwt.Refresh;
+import com.solvd.onlinestore.web.security.domain.JwtToken;
+import com.solvd.onlinestore.web.security.domain.Refresh;
 import com.solvd.onlinestore.domain.jwt.RequestUser;
 import com.solvd.onlinestore.service.AuthenticationService;
 import com.solvd.onlinestore.service.UserService;
