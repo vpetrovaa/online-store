@@ -2,6 +2,7 @@ package com.solvd.onlinestore.domain;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.time.LocalDateTime;
 
@@ -17,19 +18,20 @@ public class User {
     private String password;
     private LocalDateTime registrationTime;
 
-    public enum Role {
+    public enum Role implements GrantedAuthority {
         ROLE_ADMIN("ROLE_ADMIN"),
         ROLE_USER("ROLE_USER");
 
-        private final String authority;
+        @JsonValue
+        private final String role;
 
-        Role(String authority) {
-            this.authority = authority;
+        Role(String role) {
+            this.role = role;
         }
 
-        @JsonValue
+        @Override
         public String getAuthority() {
-            return authority;
+            return role;
         }
 
     }

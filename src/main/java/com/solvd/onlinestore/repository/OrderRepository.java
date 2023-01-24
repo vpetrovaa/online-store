@@ -13,10 +13,10 @@ public interface OrderRepository {
 
     void create(@Param("order") Order order, @Param("userId") Long userId, @Param("amount") BigDecimal amount);
 
-    List<Order> findAllByStatus(@Param("status") String status);
+    List<Order> findAllByStatus(String status);
 
-    void updateStatus(@Param("order") Order order);
+    void updateStatus(Order order);
 
-    Optional<Order> findById(@Param("id") Long id);
+    Optional<Order> findById(Long id);
 
 }

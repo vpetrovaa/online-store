@@ -4,19 +4,19 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.onlinestore.repository.ProductRepository">
 
-    <insert id='create' parameterType='com.solvd.onlinestore.domain.product.Product' useGeneratedKeys='true' keyProperty='id'>
+    <insert id="create" parameterType="com.solvd.onlinestore.domain.product.Product" useGeneratedKeys="true" keyProperty="id">
         insert into products(category, article, model, amount, description, cost)
         values(#{category}, #{article}, #{model}, #{amount}, #{description}, #{cost})
     </insert>
 
-    <resultMap type='com.solvd.onlinestore.domain.product.Product' id='ProductResultMap' autoMapping="false">
-        <id property='id' column='product_id'/>
-        <result property='category' column='category'/>
-        <result property='article' column='article'/>
-        <result property='description' column='description'/>
-        <result property='model' column='model'/>
-        <result property='cost' column='cost'/>
-        <result property='amount' column='amount'/>
+    <resultMap type="com.solvd.onlinestore.domain.product.Product" id="ProductResultMap" autoMapping="false">
+        <id property="id" column="product_id"/>
+        <result property="category" column="category"/>
+        <result property="article" column="article"/>
+        <result property="description" column="description"/>
+        <result property="model" column="model"/>
+        <result property="cost" column="cost"/>
+        <result property="amount" column="amount"/>
     </resultMap>
 
     <sql id="selectFields">
@@ -28,28 +28,28 @@
         where p.id = #{id}
     </sql>
 
-    <select id='findAllByCategory' resultMap='ProductResultMap'>
+    <select id="findAllByCategory" resultMap="ProductResultMap">
         <include refid="selectFields"/>
         where p.category = #{category}
     </select>
 
-    <select id='findAllByCategoryOrdered' resultMap='ProductResultMap'>
+    <select id="findAllByCategoryOrdered" resultMap="ProductResultMap">
         <include refid="selectFields"/>
         where p.category = #{category}
         order by p.cost #{ordering}
     </select>
 
-    <select id='findByModelOrArticle' resultMap='ProductResultMap'>
+    <select id="findByModelOrArticle" resultMap="ProductResultMap">
         <include refid="selectFields"/>
         where p.model = #{parameter} or p.article = #{parameter}
     </select>
 
-    <select id='findById' resultMap='ProductResultMap'>
+    <select id="findById" resultMap="ProductResultMap">
         <include refid="selectFields"/>
         <include refid="idCondition"/>
     </select>
 
-    <select id='findAll' resultMap='ProductResultMap'>
+    <select id="findAll" resultMap="ProductResultMap">
         <include refid="selectFields"/>
     </select>
 

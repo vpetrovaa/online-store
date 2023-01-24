@@ -9,5 +9,15 @@ spring:
       mode: always
   jackson:
     default-property-inclusion: NON_NULL
+  liquibase:
+    change-log: classpath:db/changelog-master.yml
+    liquibase-schema: store
+
 mybatis:
   mapper-locations: classpath:mybatis/*.xml
+
+jwt:
+  properties:
+    secret: qBTmv4oXFFR2GwjexDJ4t6fsIUIUhhXqlktXjXdkcyygs8nPVEwMfo29VDRRepYDlslslslslVV5IkIxBMzr7OEHXEHd37w
+    refresh: 30
+    access: 5

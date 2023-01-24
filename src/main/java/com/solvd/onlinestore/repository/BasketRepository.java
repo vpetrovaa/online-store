@@ -12,14 +12,14 @@ public interface BasketRepository {
 
     void create(Basket basket, @Param("productId") Long productId, @Param("userId") Long userId);
 
-    void delete(@Param("id") Long id);
+    void delete(Long id);
 
-    List<Basket> findAllByUserId(@Param("userId") Long userId);
+    List<Basket> findAllByUserId(Long userId);
 
-    Optional<Basket> findById(@Param("id") Long id);
+    Optional<Basket> findById(Long id);
 
     boolean isExistByProductAndUser(@Param("productId") Long productId, @Param("userId") Long userId);
 
-    void deleteAllByUserId(@Param("userId") Long userId);
+    void deleteAllByUserId(Long userId);
 
 }

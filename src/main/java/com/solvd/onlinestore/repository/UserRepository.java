@@ -11,8 +11,10 @@ public interface UserRepository {
 
     void create(User user);
 
-    Optional<User> findById(@Param("id") Long id);
+    Optional<User> findById(Long id);
 
-    boolean isExistByEmail(@Param("email") String email);
+    Optional<User> findByEmail(String email);
+
+    boolean isExistByEmail(String email);
 
 }

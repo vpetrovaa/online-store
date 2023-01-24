@@ -4,30 +4,39 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.onlinestore.repository.UserRepository">
 
-    <insert id='create' parameterType='com.solvd.onlinestore.domain.User' useGeneratedKeys='true' keyProperty='id'>
+    <insert id="create" parameterType="com.solvd.onlinestore.domain.User" useGeneratedKeys="true" keyProperty="id">
         insert into users(name, surname, email, phone, password, registration_time)
         values(#{name}, #{surname}, #{email}, #{phone}, #{password}, now()::timestamp)
     </insert>
 
-    <resultMap type='com.solvd.onlinestore.domain.User' id='UserResultMap' autoMapping="false">
-        <id property='id' column='user_id'/>
-        <result property='name' column='name'/>
-        <result property='surname' column='surname'/>
-        <result property='email' column='email'/>
-        <result property='phone' column='phone'/>
-        <result property='password' column='password'/>
-        <result property='role' column='role'/>
-        <result property='registrationTime' column='registration_time'/>
+    <resultMap type="com.solvd.onlinestore.domain.User" id="UserResultMap" autoMapping="false">
+        <id property="id" column="user_id"/>
+        <result property="name" column="name"/>
+        <result property="surname" column="surname"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="password" column="password"/>
+        <result property="role" column="role"/>
+        <result property="registrationTime" column="registration_time"/>
     </resultMap>
+
+    <sql id="selectFields">
+        select u.id, u.name, u.surname, u.email, u.phone, u.password, u.role, u.registration_time
+        from Users u
+    </sql>
 
     <select id="isExistByEmail" resultType="boolean">
         select exists(select 1 from Users u where u.email = #{email})
     </select>
 
-    <select id='findById' resultMap='UserResultMap'>
-        select u.id, u.name, u.surname, u.email, u.phone, u.password, u.role, u.registration_time
-        from Users u
+    <select id="findById" resultMap="UserResultMap">
+        <include refid="selectFields"/>
         where u.id = #{id}
+    </select>
+
+    <select id="findByEmail" resultMap="UserResultMap">
+        <include refid="selectFields"/>
+        where u.email = #{email}
     </select>
 
 </mapper>
