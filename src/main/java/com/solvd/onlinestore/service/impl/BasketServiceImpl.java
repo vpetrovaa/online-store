@@ -40,6 +40,7 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
+    @Transactional
     public void deleteAllByUserId(Long userId) {
         basketRepository.deleteAllByUserId(userId);
     }
