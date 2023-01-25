@@ -1,10 +1,12 @@
-package com.solvd.onlinestore.web.security.domain;
+package com.solvd.onlinestore.web.security;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class JwtToken {
 
     private Long expiration;

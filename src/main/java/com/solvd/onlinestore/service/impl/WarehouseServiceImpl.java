@@ -1,6 +1,7 @@
 package com.solvd.onlinestore.service.impl;
 
 import com.solvd.onlinestore.domain.Warehouse;
+import com.solvd.onlinestore.domain.product.Product;
 import com.solvd.onlinestore.repository.WarehouseRepository;
 import com.solvd.onlinestore.service.ProductService;
 import com.solvd.onlinestore.service.WarehouseService;
@@ -18,7 +19,8 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     @Transactional
     public Warehouse create(Warehouse warehouse, Long productId) {
-        warehouseRepository.create(warehouse, productService.findById(productId));
+        Product product = productService.findById(productId);
+        warehouseRepository.create(warehouse, product);
         productService.updateAmount(productId, warehouse.getAmount());
         return warehouse;
     }

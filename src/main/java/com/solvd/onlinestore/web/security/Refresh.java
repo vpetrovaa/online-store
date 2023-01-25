@@ -1,4 +1,4 @@
-package com.solvd.onlinestore.domain.jwt;
+package com.solvd.onlinestore.web.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestUser {
+public class Refresh {
 
-    private String username;
-    private String password;
+    private String refresh;
 
 }
