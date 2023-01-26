@@ -1,4 +1,4 @@
-package com.solvd.onlinestore.service.impl;
+package com.solvd.onlinestore.web.security;
 
 import com.solvd.onlinestore.domain.User;
 import com.solvd.onlinestore.service.UserService;
