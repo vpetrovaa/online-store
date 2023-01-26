@@ -74,9 +74,16 @@ class UserServiceTest {
     void verifyCreatePassedTest() {
         User user = generateUser();
         String email = "katya@mail.ru";
+        Long userId = 1L;
+        user.setId(null);
         when(userRepository.isExistByEmail(anyString())).thenReturn(false);
-        User userCreated = userService.create(user);
-        assertEquals(user, userCreated, "Assert that user and userCreated are equals");
+        doAnswer(invocation -> {
+            User userCreated = invocation.getArgument(0);
+            userCreated.setId(userId);
+            return null;
+        }).when(userRepository).create(user);
+        user = userService.create(user);
+        assertEquals(userId, user.getId(), "Assert that users id are equals");
         verify(userRepository, times(1)).isExistByEmail(email);
         verify(userRepository, times(1)).create(user);
     }

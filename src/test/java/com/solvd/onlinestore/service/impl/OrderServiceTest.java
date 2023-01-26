@@ -44,12 +44,19 @@ class OrderServiceTest {
     void verifyCreatePassedTest() {
         Basket basket = generateBasket();
         List<Basket> baskets = new ArrayList<>(List.of(basket));
-        Order order = generateOrder();
         Long userId = 1L;
+        Long orderId = 1L;
+        Order order = generateOrder();
+        order.setId(null);
         BigDecimal amount = BigDecimal.valueOf(1236.56);
         when(basketService.findAllByUser(anyLong())).thenReturn(baskets);
-        Order orderCreated = orderService.create(order, userId);
-        assertEquals(order, orderCreated, "Assert that order and orderCreated are equals");
+        doAnswer(invocation -> {
+            Order orderCreated = invocation.getArgument(0);
+            orderCreated.setId(orderId);
+            return null;
+        }).when(orderRepository).create(order, userId, amount);
+        order = orderService.create(order, userId);
+        assertEquals(orderId, order.getId(), "Assert that orders id are equals");
         verify(basketService, times(1)).findAllByUser(userId);
         verify(orderRepository, times(1)).create(order, userId, amount);
         verify(basketService, times(1)).deleteAllByUserId(userId);
@@ -96,9 +103,11 @@ class OrderServiceTest {
     @Test
     void verifyUpdateStatusTest() {
         Order order = generateOrder();
+        order.setStatus(Order.Status.TRUE);
         Long orderId = 1L;
         when(orderRepository.findById(anyLong())).thenReturn(Optional.of(order));
-        orderService.updateStatus(orderId);
+        Order orderUpdated = orderService.updateStatus(orderId);
+        assertEquals(order, orderUpdated, "Assert that order and orderUpdated are equals");
         verify(orderRepository, times(1)).findById(orderId);
         verify(orderRepository, times(1)).updateStatus(order);
     }

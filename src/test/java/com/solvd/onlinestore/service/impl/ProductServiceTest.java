@@ -69,9 +69,16 @@ class ProductServiceTest {
         Product product = generateProduct();
         String article = "6574537";
         String model = "TR34h";
+        Long productId = 1L;
+        product.setId(null);
         when(productRepository.isExistByArticleOrModel(anyString(), anyString())).thenReturn(false);
-        Product productCreated = productService.create(product);
-        assertEquals(product, productCreated, "Assert that product and productCreated are equals");
+        doAnswer(invocation -> {
+            Product productCreated = invocation.getArgument(0);
+            productCreated.setId(productId);
+            return null;
+        }).when(productRepository).create(product);
+        product = productService.create(product);
+        assertEquals(productId, product.getId(), "Assert that products id are equals");
         verify(productRepository, times(1)).create(product);
         verify(productRepository, times(1)).isExistByArticleOrModel(article, model);
     }
