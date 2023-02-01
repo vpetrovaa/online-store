@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=store
-    username: postgres
-    password: postgres
+    url: ${SPRING.DATASOURCE.URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
   sql:
     init:
       mode: always
@@ -11,7 +11,6 @@ spring:
     default-property-inclusion: NON_NULL
   liquibase:
     change-log: classpath:db/changelog-master.yml
-    liquibase-schema: store
 
 mybatis:
   mapper-locations: classpath:mybatis/*.xml

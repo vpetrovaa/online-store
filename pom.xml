@@ -27,6 +27,7 @@
 		<mockito.version>4.6.1</mockito.version>
 		<maven.surefire.version>2.22.2</maven.surefire.version>
 		<jacoco.version>0.8.8</jacoco.version>
+		<start-class>com.solvd.onlinestore.AppInitializer</start-class>
 	</properties>
 
 	<dependencies>
@@ -192,6 +193,21 @@
 						<phase>test</phase>
 						<goals>
 							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.solvd.onlinestore.AppInitializer</mainClass>
+					<layout>JAR</layout>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
 						</goals>
 					</execution>
 				</executions>
